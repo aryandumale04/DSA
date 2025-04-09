@@ -1,0 +1,34 @@
+class Solution {
+  public:
+  void reverse(vector<int> &arr,int s,int e,int k){
+      while(s<e){
+          swap(arr[s],arr[e]);
+          s++;
+          e--;
+      }
+      
+      
+  }
+  
+   
+  
+
+    // Function to rotate an array by d elements in counter-clockwise direction.
+    void rotateArr(vector<int>& arr, int d) {
+        int n= arr.size();
+         d =d %n;
+        
+        //rotate to left so 
+        //step 1 : rotate first k elements
+        reverse(arr,0,d-1,d);
+        //setp2 reverse the remaining elements n-k
+        reverse(arr,d,n-1,d);
+        //reverse the entire array
+        reverse(arr,0,n-1,d);
+        
+        
+        
+       
+        
+    }
+};
