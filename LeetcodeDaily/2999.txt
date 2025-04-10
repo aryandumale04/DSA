@@ -1,0 +1,75 @@
+class Solution {
+public:
+    string suffix;
+    vector<int> pi;
+    int lim;
+    long long dp[20][2][2][20];  // pos, tight, leading_zero, matched_suffix_len
+
+    // KMP prefix function
+    void buildPrefix() {
+        int m = suffix.size();
+        pi.assign(m, 0);
+        for (int i = 1; i < m; ++i) {
+            int j = pi[i - 1];
+            while (j > 0 && suffix[i] != suffix[j])
+                j = pi[j - 1];
+            if (suffix[i] == suffix[j]) ++j;
+            pi[i] = j;
+        }
+    }
+
+    int nextMatch(int len, char digit) {
+        while (len > 0 && digit != suffix[len])
+            len = pi[len - 1];
+        if (digit == suffix[len]) ++len;
+        return len;
+    }
+
+    long long dfs(const vector<int>& digits, int pos, bool tight, bool leadZero, int matched) {
+        if (pos == digits.size()) {
+            return (matched == suffix.size()) ? 1 : 0;
+        }
+
+        if (dp[pos][tight][leadZero][matched] != -1)
+            return dp[pos][tight][leadZero][matched];
+
+        long long res = 0;
+        int upper = tight ? digits[pos] : 9;
+
+        for (int d = 0; d <= upper; ++d) {
+            if (d > lim) continue;
+
+            bool newTight = tight && (d == upper);
+            bool newLeadZero = leadZero && (d == 0);
+
+            int newMatched = matched;
+            if (!newLeadZero) {
+                newMatched = nextMatch(matched, d + '0');
+            }
+
+            res += dfs(digits, pos + 1, newTight, newLeadZero, newMatched);
+        }
+
+        return dp[pos][tight][leadZero][matched] = res;
+    }
+
+    long long count(long long x) {
+        vector<int> digits;
+        while (x > 0) {
+            digits.push_back(x % 10);
+            x /= 10;
+        }
+        if (digits.empty()) digits.push_back(0);
+        reverse(digits.begin(), digits.end());
+
+        memset(dp, -1, sizeof(dp));
+        return dfs(digits, 0, true, true, 0);
+    }
+
+    long long numberOfPowerfulInt(long long start, long long finish, int limit, string s) {
+        suffix = s;
+        lim = limit;
+        buildPrefix();
+        return count(finish) - count(start - 1);
+    }
+};

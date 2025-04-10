@@ -1,0 +1,62 @@
+class Solution {
+public:
+   
+
+    int minimumOperations(vector<int>& nums) {
+
+
+
+
+       //use a set to insert an element
+       unordered_set<int> s;
+       int count=0;
+       int index=0;
+       
+       while(index<nums.size()){
+        bool  hasDuplicate = false;
+
+
+        for(int i=index;i<nums.size();i++){
+            int element=nums[i];
+            if(s.count(element)){
+
+                //ye wala element duplicate hai 
+                hasDuplicate =true;
+                break;
+
+            }
+            
+            //element nai hai so insert
+            else{
+                s.insert(element);
+
+            }
+
+
+
+        }
+        if(hasDuplicate){
+            index+=3;
+            count++;
+            s.clear();
+
+        }
+        else{
+            break;
+        }
+        
+
+
+
+
+        
+
+
+       }
+       return count;
+        
+
+
+        
+    }
+};
