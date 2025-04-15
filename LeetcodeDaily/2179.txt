@@ -1,0 +1,62 @@
+class Solution {
+public:
+    class FenwickTree {
+        vector<int> bit;
+        int n;
+
+    public:
+        FenwickTree(int size) {
+            n = size;
+            bit.assign(n + 1, 0);
+        }
+
+        void update(int index, int delta) {
+            index++;
+            while (index <= n) {
+                bit[index] += delta;
+                index += index & -index;
+            }
+        }
+
+        int query(int index) {
+            index++;
+            int sum = 0;
+            while (index > 0) {
+                sum += bit[index];
+                index -= index & -index;
+            }
+            return sum;
+        }
+
+        int queryRange(int left, int right) {
+            return query(right) - query(left - 1);
+        }
+    };
+
+    long long goodTriplets(vector<int>& nums1, vector<int>& nums2) {
+        int n = nums1.size();
+        vector<int> posInNums2(n);
+        for (int i = 0; i < n; ++i)
+            posInNums2[nums2[i]] = i;
+
+        vector<int> transformed(n);
+        for (int i = 0; i < n; ++i)
+            transformed[i] = posInNums2[nums1[i]];
+
+        FenwickTree leftBIT(n), rightBIT(n);
+        vector<int> rightCount(n, 0);
+        for (int i = n - 1; i >= 0; --i) {
+            rightCount[i] = rightBIT.queryRange(transformed[i] + 1, n - 1);
+            rightBIT.update(transformed[i], 1);
+        }
+
+        long long result = 0;
+        for (int i = 0; i < n; ++i) {
+            int leftSmaller = leftBIT.query(transformed[i] - 1);
+            result += (long long)leftSmaller * rightCount[i];
+            leftBIT.update(transformed[i], 1);
+        }
+
+        return result;
+    }
+};
