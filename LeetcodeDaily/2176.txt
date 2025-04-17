@@ -1,0 +1,22 @@
+class Solution {  
+public:  
+    int countPairs(vector<int>& nums, int k) {  
+        int count = 0;  
+        int n = nums.size();  
+        
+        // Loop through all pairs (i, j) where i < j  
+        for (int i = 0; i < n; ++i) {  
+            for (int j = i + 1; j < n; ++j) {  
+                // Check if the elements are equal  
+                if (nums[i] == nums[j]) {  
+                    // Check if the product of indices is divisible by k  
+                    if ((i * j) % k == 0) {  
+                        count++;  
+                    }  
+                }  
+            }  
+        }  
+        
+        return count; // Return the total count of valid pairs  
+    }  
+};
