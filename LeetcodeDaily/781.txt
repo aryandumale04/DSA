@@ -1,0 +1,23 @@
+
+class Solution {
+public:
+    int numRabbits(vector<int>& answers) {
+        unordered_map<int, int> count;
+        int result = 0;
+
+        // Count the frequency of each answer
+        for (int ans : answers) {
+            count[ans]++;
+        }
+
+        for (auto& [k, v] : count) {
+            // If a rabbit says "k", then there are (k + 1) rabbits of that color
+            // If v rabbits gave the answer k, then we need ceil(v / (k + 1)) groups
+            int groupSize = k + 1;
+            int groups = ceil((double)v / groupSize);
+            result += groups * groupSize;
+        }
+
+        return result;
+    }
+};
