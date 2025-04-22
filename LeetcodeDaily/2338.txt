@@ -1,0 +1,77 @@
+class Solution {
+public:
+    const int MOD = 1e9 + 7;
+    vector<int> primes;
+
+    // Precompute smallest prime factors up to maxValue
+    vector<int> getPrimes(int maxValue) {
+        vector<int> spf(maxValue + 1);
+        for (int i = 2; i <= maxValue; ++i) {
+            if (spf[i] == 0) {
+                for (int j = i; j <= maxValue; j += i) {
+                    if (spf[j] == 0) spf[j] = i;
+                }
+            }
+        }
+        return spf;
+    }
+
+    // Precompute factorials and inverses for binomial coefficients
+    void precomputeFactorials(vector<long long>& fact, vector<long long>& invFact, int n) {
+        fact[0] = 1;
+        for (int i = 1; i <= n; ++i)
+            fact[i] = fact[i - 1] * i % MOD;
+
+        invFact[n] = modInverse(fact[n]);
+        for (int i = n - 1; i >= 0; --i)
+            invFact[i] = invFact[i + 1] * (i + 1) % MOD;
+    }
+
+    long long modInverse(long long x) {
+        return power(x, MOD - 2);
+    }
+
+    long long power(long long x, long long y) {
+        long long res = 1;
+        while (y) {
+            if (y & 1) res = res * x % MOD;
+            x = x * x % MOD;
+            y >>= 1;
+        }
+        return res;
+    }
+
+    long long binom(int n, int k, vector<long long>& fact, vector<long long>& invFact) {
+        if (k > n) return 0;
+        return fact[n] * invFact[k] % MOD * invFact[n - k] % MOD;
+    }
+
+    int idealArrays(int n, int maxValue) {
+        vector<int> spf = getPrimes(maxValue);
+        vector<long long> fact(n + 14), invFact(n + 14); // +14 to safely compute binomial(n + k -1, k)
+        precomputeFactorials(fact, invFact, n + 13);
+
+        long long ans = 0;
+
+        // For each value from 1 to maxValue
+        for (int i = 1; i <= maxValue; ++i) {
+            // Prime factorize i
+            int x = i;
+            map<int, int> freq;
+            while (x > 1) {
+                freq[spf[x]]++;
+                x /= spf[x];
+            }
+
+            // Total number of divisors chains ending in i of any length
+            long long ways = 1;
+            for (auto& [p, cnt] : freq) {
+                ways = ways * binom(n + cnt - 1, cnt, fact, invFact) % MOD;
+            }
+
+            ans = (ans + ways) % MOD;
+        }
+
+        return (int)ans;
+    }
+};
