@@ -1,0 +1,25 @@
+#include<queue>
+int longestSubarrayWithSumK(vector<int> a, long long k) {
+    // Write your code here
+    deque<int>v;
+    long long sum=0;
+    int length = 0;
+    for(int i = 0 ;i<a.size();i++){
+        v.push_back(a[i]);
+
+        sum+=a[i];
+        //greater case
+        while(sum>k && !v.empty()){
+            sum-=v.front();
+            v.pop_front();
+        }
+        //equal wala case
+        if(sum==k){
+           int currLength=v.size();
+           length=max(currLength,length);
+        }
+
+
+    }
+    return length;
+}
