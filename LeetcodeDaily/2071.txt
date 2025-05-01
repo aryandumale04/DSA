@@ -1,0 +1,42 @@
+class Solution {
+public:
+    int maxTaskAssign(vector<int>& tasks, vector<int>& workers, int pills, int strength) {
+        sort(tasks.begin(), tasks.end());
+        sort(workers.begin(), workers.end());
+        
+        auto can_assign = [&](int k) {
+            deque<int> t(tasks.begin(), tasks.begin() + k);
+            multiset<int> w(workers.end() - k, workers.end());
+            int rem_pills = pills;
+
+            for (int i = k - 1; i >= 0; --i) {
+                int task = t[i];
+                auto it = w.lower_bound(task);
+                if (it != w.end()) {
+                    w.erase(it);
+                } else if (rem_pills > 0) {
+                    it = w.lower_bound(task - strength);
+                    if (it == w.end())
+                        return false;
+                    w.erase(it);
+                    rem_pills--;
+                } else {
+                    return false;
+                }
+            }
+            return true;
+        };
+        
+        int low = 0, high = min(tasks.size(), workers.size()), ans = 0;
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            if (can_assign(mid)) {
+                ans = mid;
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+        return ans;
+    }
+};
