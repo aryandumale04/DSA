@@ -1,0 +1,44 @@
+
+class Solution {
+public:
+    int longestSubsequence(string s, int k) {
+        
+        int n = s.length();
+        int i = 0;
+        long long  value = 0;
+        
+        //step 01  : count the number of indexes  until which 1 can be kept 
+        while(i < min(n,32)){
+
+            if(s[n-i-1] == '1'){
+                long long  power = pow(2,i);
+                if (value + power > k){
+                    break;
+                }
+                //else
+                value += power;
+               
+
+            }
+             i++;
+
+        }
+
+        //step 02 now check how many one will be removed post limit 
+        int removed_count = 0;
+        while(i < n){
+            if (s[n - i - 1] == '1'){
+                removed_count ++;
+            } 
+            i++;
+        }
+        int longestSequenceLength = n -removed_count;
+        return longestSequenceLength;
+
+
+
+        }
+
+        
+    
+};
