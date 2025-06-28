@@ -1,0 +1,23 @@
+class Solution {
+  public:
+    // Please change the array in-place
+    void insertionSort(vector<int>& arr) {
+        // code here
+        
+        // take each element of unsorted part one by one 
+        for(int i = 1;i < arr.size();i++){
+            int key = arr[i];
+            //sorted ka index =  unsorted -1;
+            int j = i - 1;
+            while(j >= 0 && arr[j] > key){
+                // we are inside array and jab tak chota element nahi milta 
+                arr[j+1] = arr[j];
+                j--;
+                
+            }
+            //chota mil gaya so key is chota + 1
+            j += 1;
+            arr[j] = key;
+        }
+    }
+};
