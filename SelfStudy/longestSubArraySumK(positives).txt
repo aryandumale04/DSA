@@ -1,0 +1,31 @@
+#include<iostream>
+#include<queue>
+#include<algorithm>
+#include<vector>
+using namespace std ;
+
+class Solution{
+public:
+    int longestSubarray(vector<int> &nums, int k){
+
+        queue<int> q;
+        int subArrLength = 0;
+        long long sum = 0;
+        for( int i = 0; i < nums.size(); i++ ){
+            //traversing through each element and calculating sum 
+            q.push(nums[i]);
+            sum += nums[i];
+            while(sum > k  && !q.empty()){
+                int key = q.front();
+                sum -= key;
+                q.pop();
+
+            }
+            if(sum == k){
+                int currLength = q.size();
+                subArrLength = max(subArrLength,currLength);
+            }
+        }
+        return subArrLength;
+    }
+};
