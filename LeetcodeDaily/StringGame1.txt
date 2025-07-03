@@ -1,0 +1,24 @@
+class Solution {
+public:
+    char kthCharacter(int k) {
+        string s = "a";
+        int stringLength = s.length();
+        // to check if string list atleast k toh hai 
+         
+        while( stringLength < k){
+            string  newStringAppend = "";
+            for(int i = 0 ; i < stringLength ; i++){
+                char ch = s[i];
+                
+                newStringAppend += ch + 1;
+
+            }
+            s += newStringAppend;
+            stringLength = s.length(); 
+            
+        }
+        char ans = s[k-1];
+        return ans ;
+        
+    }
+};
