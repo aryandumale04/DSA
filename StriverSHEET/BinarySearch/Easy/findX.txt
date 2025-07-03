@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int search(vector<int>& nums, int target) {
+        // low  =  first element of array 
+        int low = 0;
+        int high = nums.size() - 1; //last element of array
+        while ( low <= high){
+            int mid = low  +((high - low)/2);
+            // equal to key 
+            if(nums[mid] == target){
+
+                return mid;
+            }
+            // bada and chota 
+            if(nums[mid] > target){
+                high = mid -1;
+            }else{
+                low = mid + 1;
+                // chota case
+
+            }
+
+        }
+
+        return -1;
+        
+    }
+};
