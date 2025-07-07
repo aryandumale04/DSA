@@ -1,0 +1,46 @@
+#include<algorithm>
+#include<vector>
+#include<queue>
+class Solution {
+public:
+    int maxEvents(vector<vector<int>>& events) {
+         int n  = events.size();
+         int attended = 0;
+         int time = 1 ; //constraints 
+         int pos = 0;
+         priority_queue<int,vector<int>,greater<int>> minheap;
+         // by default maximum would have come first but now smallest will come first
+         //sort that array so that we can acess all events sequentially 
+         sort(events.begin(), events.end());
+         while( pos < n  || !minheap.empty()){
+            // ya toh sarein events pe time jana baki ya heap me ho
+            //step1 :  if no event today skip today
+            if(minheap.empty()){
+                time = max(time,events[pos][0]);
+
+            }
+            // iss day pe event hai ,okay so lets push its end date in the heap 
+            while( pos < n && events[pos][0] == time){
+                //sarein event jo hai is date pe unki end date ko min heap me add karo 
+                minheap.push(events[pos][1]);
+                pos++;
+            }
+
+            // aaj ke pehele jo event ho gaye usko nai kar sakte attend so pop them 
+            while(!minheap.empty() && minheap.top() < time){
+                minheap.pop();
+
+            }
+
+            // now attend event
+            if(!minheap.empty()){
+                minheap.pop();
+                attended++;
+
+            }
+            time ++;
+         }
+         return attended ;
+        
+    }
+};
