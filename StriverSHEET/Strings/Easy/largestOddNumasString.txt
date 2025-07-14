@@ -1,0 +1,17 @@
+class Solution {
+public:
+    string largestOddNumber(string num) {
+        
+        string result = "";
+        int numLength = num.length();
+        
+        for(int j = numLength -1 ; j >= 0; j--){
+            if((num[j] - '0') % 2 == 1){
+                //its an odd number 
+                return num.substr(0,j+1);
+
+            }
+        }
+        return result ;
+    }
+};
