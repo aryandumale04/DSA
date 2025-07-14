@@ -1,0 +1,32 @@
+class Solution {
+public:
+    string removeOuterParentheses(string s) {
+        int depth = 0; // to determine if this is the inner part or not 
+        string result = "";
+        for(auto c : s){
+            if( c == '('){
+                // check ye pehela toh nahi
+                if(depth != 0){
+                    //first nahi hai so add 
+                    result += c;
+                }else{
+                    
+                }
+            depth ++;
+
+            }else if(c == ')'){
+                // closing mila matlab ek level upar aana hi hai  
+                depth --;
+                //ab dekh kahi ye outer to nahi tha 
+                if(depth != 0){
+                    //oute nahi tha so add 
+                    result += c;
+                }
+
+            }
+
+        }
+        return result;
+        
+    }
+};

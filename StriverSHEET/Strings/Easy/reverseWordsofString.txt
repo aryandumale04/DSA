@@ -1,0 +1,44 @@
+class Solution {
+public:
+    string reverseWords(string s) {
+        vector<string> words;
+        int i = 0;
+        int stringSize = s.length();
+
+        //access all characters of a string 
+        while( i < stringSize){
+
+            //it can be space 
+            while ( i < stringSize  && s[i] == ' '){
+                i++;
+                //badha rahe hai isleye check
+            }
+            // before accessing check if it is there '
+            if( i >= stringSize){
+                break;
+                //string ko traverse kardiya
+            }
+            //it can be character so access it 
+            //lets access word 
+            string word = "";
+            while( i < stringSize && s[i] != ' '){
+                word += s[i];
+                i++;
+            }
+            //word mil gaya so push
+            words.push_back(word);
+        }
+        //now just reverse the vector 
+        string result = "";
+        for(int j = words.size() - 1 ;j >= 0; j--){
+            result += words[j];
+            
+            //word ke baad space dalni hai ? 
+            if( j != 0){
+                //last word nahi so dalni hai 
+                result += " ";
+            }
+        }
+    return result ;
+    }
+};
