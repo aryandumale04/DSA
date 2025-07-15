@@ -1,0 +1,34 @@
+class Solution {
+public:
+    bool isValid(string word) {
+        bool isvalid = true ;
+        // case one atleast 3 characters
+        int wordLength = word.length();
+        if( wordLength < 3){
+            isvalid = false;
+        }
+        // check for characters 
+        for(int i = 0; i < wordLength; i++){
+            if(word[i] == '@' || word[i] == '$' || word[i] == '#'){
+                isvalid = false;
+                break;
+            }
+        }
+        // now atleast one vowel 
+        int vowelCount = 0;
+        int consonantCount = 0;
+        for(int i = 0; i < wordLength ; i++){
+            if(word[i] == 'a' || word[i] == 'e' ||word[i] == 'O' ||word[i] == 'i' ||word[i] == 'o' ||word[i] == 'u' ||word[i] == 'A' ||word[i] == 'E' ||word[i] == 'I' || word[i] == 'U'){
+                vowelCount ++;
+            }else if (isalpha(word[i])){
+                consonantCount++;
+            }
+        }
+        if (vowelCount < 1 || consonantCount < 1){
+
+            isvalid = false;
+        }
+
+        return isvalid;
+    }
+};
