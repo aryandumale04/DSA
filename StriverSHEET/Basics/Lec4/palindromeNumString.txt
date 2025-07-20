@@ -1,0 +1,13 @@
+class Solution {
+public:
+    bool isPalindrome(int x) {
+        if(x < 0){
+            return false;
+        }
+        string number = to_string(x);
+        string reverseNumber = number;
+        reverse(number.begin(),number.end());
+        return number == reverseNumber;
+        
+    }
+};
