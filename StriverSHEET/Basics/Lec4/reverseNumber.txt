@@ -9,6 +9,8 @@ public:
             if( revNum > INT_MAX / 10 || revNum == INT_MAX && digit > 7){
                 return 0;
             }
+            //for negative numbers
+            
             if( revNum < INT_MIN / 10 || revNum == INT_MIN && digit < -8){
                 return  0;
             }

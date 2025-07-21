@@ -6,8 +6,10 @@ public:
         }
         int original = x;
         long reverseNumber = 0;
+
         while( x != 0){
             int digit =  x % 10;
+            
             reverseNumber = reverseNumber * 10 + digit;
             x = x / 10;
         }
