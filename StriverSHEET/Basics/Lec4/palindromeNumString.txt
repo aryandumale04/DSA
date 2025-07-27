@@ -4,6 +4,7 @@ public:
         if(x < 0){
             return false;
         }
+        //converting number to a string
         string number = to_string(x);
         string reverseNumber = number;
         reverse(number.begin(),number.end());
