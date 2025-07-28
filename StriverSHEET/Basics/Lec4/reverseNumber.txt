@@ -6,7 +6,8 @@ public:
         while( x != 0){
             int digit = x % 10;
             // overflow check  
-            if( revNum > INT_MAX / 10 || revNum == INT_MAX && digit > 7){
+            if( revNum > INT_MAX / 10 || revNum == INT_MAX && digit > 7){ // ye yaad hi rakhna hoga 
+            
                 return 0;
             }
             //for negative numbers
