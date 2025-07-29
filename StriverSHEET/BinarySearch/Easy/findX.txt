@@ -5,6 +5,7 @@ public:
         int low = 0;
         int high = nums.size() - 1; //last element of array
         while ( low <= high){
+            // for overflow check (bada -  chota )
             int mid = low  +((high - low)/2);
             // equal to key 
             if(nums[mid] == target){
