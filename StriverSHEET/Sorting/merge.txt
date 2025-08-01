@@ -1,0 +1,1 @@
+// start diving elements into two parts untill each part is sorted and then keepnmerging two sorted arrays
