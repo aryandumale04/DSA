@@ -1,0 +1,32 @@
+#include<iostream>
+#include<unordered_map>
+#include<algorithm>
+class Solution {
+public:
+    int totalFruit(vector<int>& fruits) {
+        
+        unordered_map<int,int> mp;
+        int maxCount = 0;
+        int left = 0;
+        //traversing all the trees one by one 
+        for (int right = 0; right < fruits.size() ; right++){
+
+            // add karde pehele map me 
+            mp[fruits[right]]++;// create karde and increment the count 
+            // check for limit 
+            while( mp.size() > 2){
+                mp[fruits[left]] --;
+                if(mp[fruits[left]] == 0 ){
+                    mp.erase(fruits[left]);
+                    
+                }
+                left ++; 
+            }
+            maxCount = max(maxCount,right - left + 1);
+            
+
+        }
+        return maxCount ;
+        
+    }
+};
