@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int numOfUnplacedFruits(vector<int>& fruits, vector<int>& baskets) {
+        
+        int unPlaced = 0;
+        
+        vector<bool> used(fruits.size(),false);
+        for (int fruit = 0 ; fruit < fruits.size(); fruit++ ){
+            bool placed = false;
+            // har fruit ko ek ke bad ek place karne ka try karo
+            for(int basket = 0; basket < baskets.size(); basket ++){
+                if (baskets[basket] >= fruits[fruit] && used[basket] == false ){
+                    placed = true;
+                    used[basket] = true;
+                    
+                    break;
+                }
+
+
+            }
+            if(!placed){
+                unPlaced ++;
+            }
+        }
+        return unPlaced;
+        
+    }
+};
