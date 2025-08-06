@@ -1,0 +1,76 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+const int MAXN = 1e6 + 5;
+
+vector<int> graph[MAXN];
+vector<bool> visited(MAXN, false);
+vector<int> museums;
+
+long long dfs(int node) {
+    visited[node] = true;
+    long long sum = museums[node]; // count museums in this city
+    for (int neighbor : graph[node]) {
+        if (!visited[neighbor]) {
+            sum += dfs(neighbor);
+        }
+    }
+    return sum;
+}
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
+    int N, M, K;
+    cin >> N >> M >> K;
+
+    // Read roads (edges)
+    for (int i = 0; i < M; i++) {
+        int u, v;
+        cin >> u >> v;
+        u--, v--; // Convert to 0-based
+        graph[u].push_back(v);
+        graph[v].push_back(u);
+    }
+
+    // Read museums in each city
+    museums.resize(N);
+    for (int i = 0; i < N; i++) {
+        cin >> museums[i];
+    }
+
+    // Identify connected components
+    vector<long long> componentMuseums;
+    for (int i = 0; i < N; i++) {
+        if (!visited[i]) {
+            long long sum = dfs(i);
+            componentMuseums.push_back(sum);
+        }
+    }
+
+    int C = componentMuseums.size(); // number of components
+
+    if (K > C) {
+        cout << -1 << '\n';
+        return 0;
+    }
+
+    // Sort components by museum count
+    sort(componentMuseums.begin(), componentMuseums.end());
+
+    long long total = 0;
+    int left = 0, right = C - 1;
+    for (int i = 0; i < K; i++) {
+        if (i % 2 == 0) { // Lavanya's turn - pick largest
+            total += componentMuseums[right--];
+        } else {          // Nikhil's turn - pick smallest
+            total += componentMuseums[left++];
+        }
+    }
+
+    cout << total ;
+    return 0;
+}
