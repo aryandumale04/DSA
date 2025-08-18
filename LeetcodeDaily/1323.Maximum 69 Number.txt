@@ -4,7 +4,8 @@ public:
         string number =  to_string(num);
         for(int i = 0 ; i  < number.length(); i ++){
             if(number[i] == '6'){
-                // because the left most six will have highest value 
+                // because the left most six will have highest value and changing
+                it will result in HIGHEST value change
                 number[i] = '9';
                 break;
             }

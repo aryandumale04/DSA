@@ -1,0 +1,19 @@
+class Solution {
+public:
+    bool isPowerOfThree(int n) {
+        for (int i = 0 ; ; i++){
+            
+            if(pow(3,i) > INT_MAX){
+                return false;
+            }
+            else{
+                int number =  pow(3,i);
+                if(number == n){
+                    return true ;
+                }
+            }
+        }
+        return false;
+        
+    }
+};
