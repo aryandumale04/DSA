@@ -2,7 +2,7 @@ class Solution {
 public:
     bool isPowerOfThree(int n) {
         for (int i = 0 ; ; i++){
-            
+            // can also run loop until 30 because 2 raised to 30  is in the range of int
             if(pow(3,i) > INT_MAX){
                 return false;
             }
