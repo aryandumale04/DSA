@@ -29,6 +29,9 @@ public:
        if(num.find("999") != string ::npos){
             return "999";
        }
+       // because hint was given you could check sequentially in decreasing order 
+       can also store these in a vector 
+       the catch was decoding what could be the sample space
         if(num.find("888") != string ::npos){
             return "888";
        } if(num.find("777") != string ::npos){
