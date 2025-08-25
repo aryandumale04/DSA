@@ -5,6 +5,7 @@ public:
        
         
         for(int i = 0; i <= 30 ; i++){
+            //because only uptil 2 power 30 in int range and in question asked is  INT an power of two
             int num =  pow(2,i);
             if( num == n ){
                 return true;
