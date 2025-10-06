@@ -1,0 +1,21 @@
+class Solution {
+public:
+    string largestOddNumber(string num) {
+
+        //step01 : check whether the entered string/number is odd 
+        if((num.back() - '0') % 2 != 0){
+            //string is odd 
+            return num;
+        }else{
+            //string is even now find largest odd in it  
+            //CATCH : the largest oddd willl always start from most significant bit and end at the last odd digit in the string 
+            for (int i = num.length() - 1; i >= 0 ; i-- ){
+                if((num[i] - '0') % 2 != 0){
+                    //found the most right odd digit 
+                    return num.substr(0, i + 1);
+                }
+            }
+            return "";
+        }
+    }
+};
