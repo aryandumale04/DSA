@@ -1,0 +1,46 @@
+class Solution {
+public:
+    vector<int> avoidFlood(vector<int>& rains) {
+
+        int n =  rains.size();
+        vector<int> ans(n,1);
+        unordered_map<int,int> lakeFullDay;
+        set<int> zeroDays;
+
+        for(int i = 0; i < n; i++){
+            // traversing through each day 
+            if(rains[i] > 0){
+                // it will rain today 
+                int lake = rains[i];// ye lake full ho jayegi
+                ans[i] = -1;
+
+
+                // if lake is already fool
+                if(lakeFullDay.count(lake)){
+                    // lake already full hai 
+                    //so lets try to see if we can empty it before it rains again
+                    auto it = zeroDays.upper_bound(lakeFullDay[lake]);
+                    if(it == zeroDays.end()){
+                        return {};
+                    } else{
+                        //assign the zero day to the lake 
+                        ans[*it] = lake;
+                        zeroDays.erase(it);//zeroDay consumed
+                    }
+                }
+
+                //iif lake dry thi so ab full ho jyegi
+                lakeFullDay[lake] = i;
+
+
+            }else{
+                // day to dry a lake
+                zeroDays.insert(i);
+            }
+
+        }
+
+    return ans;
+        
+    }
+};
