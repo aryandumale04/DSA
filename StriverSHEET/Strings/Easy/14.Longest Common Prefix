@@ -1,0 +1,28 @@
+class Solution {
+public:
+    string longestCommonPrefix(vector<string>& strs) {
+
+        int numberOfStrings = strs.size();
+        string referenceString = strs[0];
+        int prefixLength = 0;
+        
+        // now we need to traverse to each character of first string 
+        for(int i = 0; i < referenceString.size(); i++){
+           char compareCharacter = referenceString[i];
+
+            // ab is character ko baki string ke saath compare karo 
+            for(int j = 1; j < numberOfStrings ; j++){
+                //accessing other strings 
+                if( i>= strs[j].size() || strs[j][i] != compareCharacter){
+                    return referenceString.substr(0,prefixLength);
+                }
+            }
+            prefixLength++;
+
+           
+        }
+         //puri first string hi match hogayi 
+            return referenceString.substr(0,prefixLength);
+        
+    }
+};
