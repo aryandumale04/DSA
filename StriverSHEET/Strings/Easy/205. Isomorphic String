@@ -1,0 +1,38 @@
+class Solution {
+public:
+    bool isIsomorphic(string s, string t) {
+
+        unordered_map<char,char> sTot;
+        unordered_map<char,char> tTos;
+
+        for(int i = 0 ; i <s.size(); i++){
+            char c1 = s[i];
+            char c2 = t[i];
+
+            //check if ye character already map hai ya nahi 
+            if(sTot.count(c1)){
+                //already mapped hai 
+                //check if properly mapped hai ya nahi 
+                if(sTot[c1] != c2){
+                    return false;
+                }
+            }else{
+                //mapped nahi hai so map karo
+                sTot[c1] = c2;
+
+            }
+
+            // c2 should also be mapped by this c1 only 
+            if(tTos.count(c2)){
+                if(tTos[c2]!= c1){
+                    return false;
+                }
+            }else{
+                tTos[c2] = c1;
+
+            }
+        }
+        return true;
+
+    }  
+};
