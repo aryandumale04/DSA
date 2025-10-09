@@ -1,0 +1,24 @@
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+        unordered_map<char,int> charFreq;
+        for(char c : s){
+            charFreq[c]++;
+
+        }
+        for(char c : t){
+            if(charFreq.find(c) == charFreq.end() || charFreq[c] == 0){
+                return false;
+            }else{
+                charFreq[c]--;
+            }
+        }
+        for(auto it : charFreq){
+            if(it.second != 0){
+                return false;
+            }
+        }
+        return true;
+        
+    }
+};
