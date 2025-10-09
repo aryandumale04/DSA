@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int maxDepth(string s) {
+        int maxCount = 0;
+        int currCount = 0;
+        for(char ch : s){
+            if(ch == '('){
+                //we have entered a depth 
+                currCount ++;
+                maxCount = max(maxCount,currCount);
+            }
+            if(ch == ')'){
+                //ek depth upar aagaye
+                currCount -- ;
+            }
+        }
+        return maxCount ;
+    }
+};
