@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int romanToInt(string s) {
+        
+        unordered_map<char,int> romanValues;
+        romanValues['I'] = 1;
+        romanValues['V'] = 5;
+        romanValues['X'] = 10;
+        romanValues['L'] = 50;
+        romanValues['C'] = 100;
+        romanValues['D'] = 500;
+        romanValues['M'] = 1000;
+
+        int intValue = 0;
+        for(int i = 0; i < s.size(); i++){
+
+            if(i < s.size()-1 && romanValues[s[i]] < romanValues[s[i+1]]){
+                intValue-=romanValues[s[i]];
+            }else{
+                intValue +=  romanValues[s[i]];
+            // the exception is 4 and 9 wala case
+            }
+             
+
+        }
+        return intValue;
+
+    }
+};
