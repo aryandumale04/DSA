@@ -1,0 +1,28 @@
+class Solution {
+public:
+    string frequencySort(string s) {
+
+        //store the frequency count 
+        unordered_map<char,int> freqCount;
+        for(int i = 0 ; i < s.size(); i++){
+            freqCount[s[i]] ++;
+        }
+
+        // now we need to sort these in descending order : 
+        //1 copy to vector for sorting 
+        vector<pair<char,int>> freqVec (freqCount.begin(), freqCount.end());
+
+        //now actually sort 
+        sort(freqVec.begin(), freqVec.end(), [](auto &a, auto&b) {
+            // this is the comparator function 
+            return a.second >b.second;
+        });
+
+        // we need to construct a string 
+        string ans; 
+        for(auto &ch : freqVec){
+            ans += string(ch.second,ch.first);
+        }
+        return ans;        
+    }
+};
