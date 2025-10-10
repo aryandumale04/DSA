@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int maximumEnergy(vector<int>& energy, int k) {
+        int maxEnergy = INT_MIN;
+        int n = energy.size();
+        vector<int> eg(n);
+        for(int i = n - 1; i >= 0; i--){
+            if( i + k < n){
+               //maximum energy that can be gained from here and ahead of this index 
+               eg[i] = energy[i] + eg[i + k]; 
+
+            }else{
+                eg[i] = energy[i];
+            }
+            maxEnergy = max(maxEnergy,eg[i]);
+        }
+        return maxEnergy;
+    }
+};
