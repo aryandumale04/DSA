@@ -1,0 +1,31 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution {
+public:
+    long long maximumTotalDamage(vector<int>& power) {
+        unordered_map<long long,long long> total;
+        for (auto &p : power) total[p] += p;
+
+        vector<long long> vals;
+        for (auto &x : total) vals.push_back(x.first);
+        sort(vals.begin(), vals.end());
+
+        int m = vals.size();
+        vector<long long> dp(m, 0);
+        dp[0] = total[vals[0]];
+
+        for (int i = 1; i < m; i++) {
+            // find previous index that is not in [val[i]-2, val[i]-1]
+            int j = i - 1;
+            while (j >= 0 && vals[j] >= vals[i] - 2) j--;
+
+            long long include = total[vals[i]] + (j >= 0 ? dp[j] : 0);
+            long long exclude = dp[i-1];
+
+            dp[i] = max(include, exclude);
+        }
+
+        return dp[m-1];
+    }
+};
