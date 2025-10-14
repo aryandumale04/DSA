@@ -1,0 +1,39 @@
+class Solution {
+public:
+    bool hasIncreasingSubarrays(vector<int>& nums, int k) {
+        int n =  nums.size();
+        for(int i = 0; i + 2*k <= n; i ++ ){
+            // i have two arrays of k size to compare ,now i need to compare them 
+            bool firstArray =  true;
+            for(int j = i; j < i + k - 1  ; j ++ ){
+                 if(nums[j] >= nums[j+1]){
+                    firstArray = false;
+                    break; // ye index se array exist hi nahi karta shift to next index;
+                }
+            }
+            if(!firstArray){
+                continue;
+            }else{
+                bool secondArray = true;
+                 // first array ke sarein element the barabar ab next array check karna hai 
+                 for(int l= i + k; l < i + 2*k - 1; l ++){
+                    if(nums[l] >= nums[l+1]){
+                    secondArray = false;
+                    break; // ye index se array exist hi nahi karta shift to next index;
+                }
+                
+                
+                
+            }
+            // both array checked ab dekh adjacent mila ya nahi 
+                 if(secondArray) return true;
+            }
+            
+           
+           
+        }
+                
+                
+        return false;
+    }
+};
