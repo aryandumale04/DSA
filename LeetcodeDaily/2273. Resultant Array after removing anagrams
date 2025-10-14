@@ -1,0 +1,36 @@
+class Solution {
+public:
+    bool removeString(string a, string b) {
+        // check if two strings are anagrams or not 
+        if (a.length() != b.length()) return false;
+
+        unordered_map<char, int> charCount; 
+        for (char c : a)
+            charCount[c]++;
+
+        for (char c : b) {
+            if (charCount.find(c) == charCount.end() || charCount[c] == 0)
+                return false;
+            charCount[c]--;
+        }
+
+        for (auto &it : charCount) {
+            if (it.second != 0)
+                return false;
+        }
+        return true;
+    }
+
+    vector<string> removeAnagrams(vector<string>& words) {
+        int i = 1; // start from second element
+        while (i < words.size()) {
+            if (removeString(words[i - 1], words[i])) {
+                // remove current word if it's an anagram of the previous
+                words.erase(words.begin() + i);
+            } else {
+                i++; // move ahead only if no deletion happened
+            }
+        }
+        return words;
+    }
+};
