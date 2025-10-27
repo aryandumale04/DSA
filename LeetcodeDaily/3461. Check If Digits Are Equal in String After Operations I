@@ -1,14 +1,23 @@
 class Solution {
 public:
     bool hasSameDigits(string s) {
-        while (s.size() > 2) {
-            string next = "";
-            for (int i = 0; i < s.size() - 1; i++) {
-                int sum = ((s[i] - '0') + (s[i + 1] - '0')) % 10;
-                next += (sum + '0');
+        int stringSize = s.size();
+        
+        while(stringSize > 2){
+            // jab tak 2 digits se jyada hai sab pe operations karte raho
+            string newString = "";
+            for(int i = 0; i <= stringSize-2; i++){
+            
+                // i and i +  se ek digit form karn hai and usko add karna hai new string kme
+                //step 01 :  operation 
+                int digit = ( (s[i] - '0') + (s[i+1] - '0') ) % 10;
+                newString += to_string(digit);
             }
-            s = next;
+           s = newString;
+           stringSize = s.size();
+
         }
-        return s[0] == s[1];
+        if(s[0] == s[1]) return true;
+        else return false;
     }
 };
