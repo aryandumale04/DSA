@@ -1,0 +1,33 @@
+class Solution {
+public:
+    pair<string,int> convertToBinary(int n){
+        int dummyNumber = n;
+        string binary = "";
+        while(dummyNumber > 0){
+            int remainder = dummyNumber % 2;
+            binary += to_string(remainder);
+            dummyNumber /= 2; 
+        }
+        reverse(binary.begin(),binary.end());
+        return make_pair(binary,n);
+    }
+    
+    int smallestNumber(int n) {
+
+    
+      pair<string,int> result =  convertToBinary(n);
+      bool allBitsOne = true;
+      for(int i = 0 ; i < result.first.size(); i++ ){
+        if (result.first[i] != '1') {
+            allBitsOne = false;
+            break;
+        }
+
+      }
+      if(allBitsOne){
+        return result.second;
+      }else{
+        return smallestNumber(result.second + 1);
+      }
+    }
+};
