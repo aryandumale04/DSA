@@ -1,0 +1,44 @@
+class Solution {
+public:
+    vector<int> findXSum(vector<int>& nums, int k, int x) {
+       
+       vector<int> answer;
+       int n = nums.size();
+
+       // iterate through all k sub arrays 
+       for(int i = 0; i+k-1 < n; i++){
+
+        //calculate the frequency count in each subarray 
+        map<int,int> freqCount;
+        for(int j = i; j < i+k; j++){
+            freqCount[nums[j]]++;
+        }
+
+        // top x most occurred elements lene hai  
+        //01 for sorting convert to vector
+        vector <pair<int,int>> elements;
+        for(auto it  : freqCount){
+            elements.push_back({it.first,it.second});
+        }
+        //sort 
+        sort(elements.begin(),elements.end() ,[](auto &a,auto&b){
+            if (a.second == b.second) return a.first > b.first;
+            return a.second > b.second;
+        });
+
+        // select top x elements
+        unordered_set<int> top;
+        for(int m = 0; m < x && m < elements.size(); m++){
+            top.insert(elements[m].first);
+        }
+
+        //calculate the x sum now 
+        int sum = 0;
+        for(int o = i; o < i+k;o++){
+            if(top.count(nums[o])) sum+=nums[o];
+        }
+        answer.push_back(sum);
+       }
+       return answer;
+    }
+};
