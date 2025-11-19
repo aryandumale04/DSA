@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int findFinalValue(vector<int>& nums, int original) {
+        
+        int n = nums.size();
+        bool keyFound = true;
+        while(keyFound){
+            
+            keyFound = false;
+            for(int i = 0; i < n; i++){
+                if(nums[i] == original){
+                    original *= 2;
+                    keyFound = true;
+                    break;
+                }
+
+            }
+            if(!keyFound){
+                break;
+            }
+
+        }
+        return original;
+
+        
+    }
+};
