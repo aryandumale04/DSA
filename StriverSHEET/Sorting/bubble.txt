@@ -1,25 +1,21 @@
 class Solution {
   public:
-    // Function to sort the array using bubble sort algorithm.
     void bubbleSort(vector<int>& arr) {
-        // Your code here
-        bool swapped  =  false ;
-        // in bubble sort at each iteration one largest element will be placed at tright
-        for( int i = 0; i < arr.size() ;i++){
-            // in each pass largest will shifyt to the current most dynamic right 
-            for( int j = 0; j  < arr.size() - i - 1 ; j++){
-                
-                //compare adjacent elements 
-                if (arr[j] > arr[j+1]){
-                    swap(arr[j],arr[j+1]);
-                    swapped = true ;
-                    
-                }
-            }
-            if (!swapped){
-                //array sort ho chuka hai no need of further passes
-                break;
-            }
-        }
+        // code here
+        int n =  arr.size();
+         for(int i = 0; i < n - 1; i++){
+             // outer loop just is for the number of interations 
+             bool swapped = false ;
+             for(int j = 0; j < n - 1; j++){
+                 if(arr[j] > arr[j + 1]) { 
+                     swap(arr[j],arr[j + 1]);
+                     swapped = true;
+                 }
+                 
+             }
+             if(!swapped){
+                 break;
+             }
+         }
     }
 };
