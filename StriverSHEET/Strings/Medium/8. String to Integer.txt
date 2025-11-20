@@ -1,0 +1,52 @@
+class Solution {
+public:
+    int myAtoi(string s) {
+
+    int i = 0;
+    int n =  s.size();
+
+     //step01 : Handle Leading Spaces 
+     while( i < n  && s[i] == ' '){
+        i++;
+     }
+
+    //  step02: Handle + - signs
+    bool isNegative = false;
+    if( i < n && ( s[i] == '+' || s[i] == '-' )){
+        if( s[i] == '-') isNegative = true ; 
+        i++;
+
+    }
+
+    // step03:Deal with  leading zeros 
+    while( i < n && s[i] == '0'){
+        i++;
+    }
+
+    long long num = 0;
+    long long limit = isNegative ? (long long)INT_MAX  + 1 : (long long)INT_MAX;
+;    //step04: collect DIGITS only until first non-digit character
+    while( i < n && isdigit(s[i]) ){
+        int digit = s[i] - '0';
+        if( num > limit / 10  || num == limit / 10 && digit > limit % 10) {
+            return isNegative ? INT_MIN : INT_MAX;
+        }
+        
+        // build the num ; 
+        num = num * 10 +  digit;
+
+       i++; 
+    }
+
+
+  
+
+    if(isNegative){
+        num = -num;
+    }
+    return num;
+
+     
+
+    }
+};
