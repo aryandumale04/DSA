@@ -1,0 +1,33 @@
+class Solution {
+public:
+    int countPalindromicSubsequence(string s) {
+        int numPalindromes = 0;
+        int slength = s.size();
+
+        if( slength < 3 ){
+            return 0;
+        }
+
+        vector<int> firstIndex(26,INT_MAX);
+        vector<int> lastIndex(26,INT_MIN);
+
+        for( int i = 0; i < slength; i++ ){
+            int character = s[i] - 'a';
+            firstIndex[character] = min(firstIndex[character], i);
+            lastIndex[character] = max(lastIndex[character], i);
+        }
+
+        for( int character = 0; character < 26; character++ ){
+            // checking each character as possible first and last character of subsytring
+            if( firstIndex[character] >= lastIndex[character] ) continue;
+
+            unordered_set<char> uniqueCharacters;
+            for( int c = firstIndex[character] + 1; c < lastIndex[character]; c++){
+                uniqueCharacters.insert(s[c]);
+            }
+            numPalindromes += uniqueCharacters.size();
+        }
+        return numPalindromes;
+        
+    }
+};
