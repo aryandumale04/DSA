@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int removeElement(vector<int>& nums, int val) {
+        for (int i = 0; i < nums.size(); i++) {
+            if (nums[i] == val) {
+                // we need to place this element some where 
+                int j = i + 1;
+                while (j < nums.size() && nums[j] == val) {
+                    j++;
+                } 
+                if (j < nums.size()) {
+                    swap(nums[i],nums[j]);
+                }
+                
+
+            }
+        }
+        int count = 0 ;
+        for (int i = 0; i < nums.size(); i++) {
+            if (nums[i] != val) count++;
+        }
+        return count;
+    }
+};
