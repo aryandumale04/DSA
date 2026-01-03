@@ -1,0 +1,18 @@
+#include<map>
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+      int count = 1; 
+      int uniqueElementIndex = 1; // start from 1 because first unique element is already at its correct position which is index 2 
+      for (int i = 1; i < nums.size() ; i++) {
+        if (nums[i] != nums[i-1]) { 
+            // unique element 
+            count ++;
+            nums[uniqueElementIndex] = nums[i];
+            uniqueElementIndex ++ ;
+        }
+      }
+      return count;
+    }
+
+};
