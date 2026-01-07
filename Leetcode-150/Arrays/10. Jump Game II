@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int jump(vector<int>& nums) {
+        
+        int n = nums.size();
+        vector<int> dp(n,INT_MAX); //dp[i] : the minimum number of JUMPS required to reach index i
+        dp[0] = 0;
+        //try jumping of each index
+        for (int i = 0; i < n; i++) {
+            if (dp[i] == INT_MAX) {
+                continue;
+            } else {
+                // try all the jumps from this index
+                for (int j = 1; j <= nums[i] && i + j < n; j++) {
+                    dp[i+j] = min(dp[i+j], dp[i]+1);
+                }
+            }
+        }
+        return dp[n-1];
+    }
+};
