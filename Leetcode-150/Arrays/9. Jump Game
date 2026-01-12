@@ -2,21 +2,23 @@
 class Solution {
 public:
     bool canJump(vector<int>& nums) {
-        int maxReach = 0; // maximum index that can be reached
-        for (int i = 0; i < nums.size(); i++) {
-            //check whether this index is reacheable or not 
-            if (i > maxReach) {
-                return false;
-            }
-
-            //reachable so include it and its steps
-            maxReach = max(maxReach, i + nums[i]);
-            if (maxReach >= nums.size()-1) {
-                return true;
-            }
-            
+       
+       int maxReach = 0;
+       int n = nums.size();
+       for (int i = 0; i < n; i++){
+        // check is i reachable (this particular index of array)
+        if (i > maxReach) {
+            return false;
+            // anything from here is unreachable
         }
-        return true;
-        
+        // this index is reachable,so update maxReach(since we can jump nums[i] steps further from here)
+        maxReach =  max(maxReach, i  + nums[i]);
+        //now that maxReach is updated ,lets perform an early check
+        if (maxReach >= n - 1) {
+            return true;
+        }
+       }
+       return true;
+
     }
 };
