@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int hIndex(vector<int>& citations) {
+        int maxHIndex = 0; //h_index is always [0...n]
+        int n = citations.size();
+        for (int i = 0; i <= n; i++) {
+            //we will try all possible values of h to find the maximum one;
+            int atleastPaperCount = 0;
+            for (int j = 0; j < n; j++) {
+                if (citations[j] >= i) {
+                    atleastPaperCount++;
+                }
+            }
+            if (atleastPaperCount >= i) {
+                //possible candidate of h index 
+                maxHIndex = max(maxHIndex, i);
+            }
+        }
+        return maxHIndex;
+    }
+};
