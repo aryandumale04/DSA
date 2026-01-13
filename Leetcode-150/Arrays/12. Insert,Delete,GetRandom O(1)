@@ -1,42 +1,47 @@
+#include<iostream>
+#include<vector>
+#include<unordered_map>
 #include<cstdlib>
 #include<ctime>
-
 class RandomizedSet {
 public:
+    // to get O(1) access element : Vector DS is best
+    // insert and delete at front /  beginning in vector takes O(n) time so we will use unordered_map
     vector<int> v;
-    unordered_map<int,int> mp;
+    unordered_map<int,int> mp; // store element with its index of vector
     RandomizedSet() {
-        srand(time(0));
+       srand(time(0));
     }
     
     bool insert(int val) {
-        if (mp.find(val) == mp.end()) {
-            v.push_back(val);
-            mp[val] = v.size() - 1;
-            return true;
-        }else{
-            return false;
-        }
+       if (mp.find(val) == mp.end()) {
+        v.push_back(val);
+        mp[val] = v.size() - 1;
+        return true;
+       } else {
+        return false;
+       }
     }
     
     bool remove(int val) {
-        if (mp.find(val) == mp.end()) {
-            return false;
-        } else {
-            // element present so lets remove it ;
-            int index = mp[val];
-            int lastValue = v.back();
-            v[index] = lastValue;
-            mp[lastValue] = index;
-            v.pop_back();
-            mp.erase(val);
-            return true;
-        }
+       if (mp.find(val)!= mp.end()) {
+        //remove from vector first
+        int lastElement = v.back();
+        int index = mp[val];
+        v[index] = lastElement;
+        mp[lastElement] = index;
+        v.pop_back();
+        mp.erase(val);
+        return true;
+       } else {
+        return false;
+       }
     }
     
+    
     int getRandom() {
-       int indexOfRandomNumber =  rand() % v.size();
-       return v[indexOfRandomNumber]; 
+     int randomIndex = rand() % v.size();
+     return v[randomIndex];
     }
 };
 
