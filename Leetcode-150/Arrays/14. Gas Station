@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
+       
+       int n = gas.size();
+       long long totalDiff = 0; //just to check whether there exist any solution for the given arrays: gas and cost
+       long long tank = 0; 
+       int start = 0; // first candidate start
+       for (int i = 0; i < n; i++) {
+        // lets just check the fuel sufficiency from our candidate start = thats why i = 0;
+        long long diff = gas[i] - cost[i]; // lets create a variable which will perform the gain -  cost and all computation so that we can directly add it to tank (even if the magnitude is negative)
+        tank += diff;
+        totalDiff += diff;
+
+        // we have performed one computation (i.e one local step so just add checks for early exit)
+        if (tank < 0) {
+            // we dont have enough gas to complete the journey if we start  from this candidate start
+            start = i + 1; //greedy step : at whatever i we failed , we had collected all the gas till i and still we failed so any start from start+1(candidate) till i would also fail 
+            tank = 0; // simulating new calculation 
+
+        }
+
+       }
+       return (totalDiff >= 0) ? start : -1; 
+
+    }
+};
