@@ -1,0 +1,13 @@
+class Solution {
+public:
+    string longestCommonPrefix(vector<string>& strs) {
+        string preFix = strs[0];
+        int n = strs.size();
+        for (int i = 1; i < n; i++) {
+           while (!preFix.empty() && strs[i].find(preFix) != 0) {
+            preFix.pop_back();
+           }
+        }
+        return preFix;
+    }
+};
