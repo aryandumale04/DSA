@@ -1,0 +1,32 @@
+class Solution {
+public:
+    int strStr(string haystack, string needle) {
+       int n = haystack.length();
+       int m = needle.length();
+
+       //traversing from starting to the position of finding the last window
+       for (int i = 0; i <= n - m ; i++) {
+        int index = i; // candidate index
+        bool matched = true;
+
+        // now lets check the window starting from this index
+        for(int j = 0; j < m; j++) {
+            if (haystack[index] != needle[j]) {
+                // break
+                matched = false;
+                break;
+            } else {
+                //match 
+                index ++;
+            }
+        }
+        if (matched) {
+            return i;
+        }
+
+       }
+       return -1;
+
+
+    }
+};
