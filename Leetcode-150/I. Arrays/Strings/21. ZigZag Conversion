@@ -1,0 +1,35 @@
+class Solution {
+public:
+    string convert(string s, int numRows) {
+        vector<string> zPattern(numRows,"");
+        int currentRow = -1;
+        bool direction = true;
+        int n = s.size();
+        string result = "";
+        
+        if (numRows == 1) {
+            return s;
+        }
+
+        for (int i = 0; i < n; i++) {
+            // traverse the entire string 
+            if (direction) {
+                currentRow++;
+               zPattern[currentRow] = zPattern[currentRow].append(1,s[i]);
+            } else {
+                currentRow --;
+                zPattern[currentRow] = zPattern[currentRow].append(1,s[i]);
+            }
+            // direction check for further elements 
+
+            if (currentRow == 0) direction = true;
+            if (currentRow == numRows-1) direction = false;
+        } 
+         int j = zPattern.size();
+         for (int i = 0; i < j; i++) {
+            result += zPattern[i];
+         }
+         return result;
+        
+    }
+};
