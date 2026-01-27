@@ -1,0 +1,34 @@
+class Solution {
+public : 
+    string reverseWords (string s) {
+        vector<string> words;
+        int n = s.size();
+        string answer = "";
+        int i = 0;
+        while ( i < n) {
+            // traversing the entire string to extract all the words 
+
+            while( i < n && s[i] == ' ') {
+                i++;
+            }
+
+            string newWord = "";
+            while ( i < n  && s[i] != ' ') {
+                newWord += s[i];
+                i++;
+            }
+            // done extracting the word 
+           if (!newWord.empty()) {
+             words.push_back(newWord);
+           }
+        }
+        int j = words.size() - 1;
+        for (int i = j; i >= 0; i--) {
+            answer+= words[i];
+            if (i != 0){ 
+                answer += ' ';
+            }
+        }
+        return answer;
+    }
+};
