@@ -1,0 +1,39 @@
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        int n = nums.size();
+        vector<vector<int>> triplets;
+
+        sort(nums.begin(),nums.end()); // so that all duplicates come together and we can skip them
+        for (int i = 0; i < n; i++) {
+            // each nums[i] is our candidate first element of the triplet
+            // but first we need to make sure this is not a duplicate 
+
+            if (i > 0 && nums[i] == nums[i-1]) continue; // since a duplicate 
+
+            // now we need second and third element
+            int left = i + 1;
+            int right = n - 1;
+            while (left < right) {
+                // traversing the entire array ahead of nums[i] to find the two sum of nums[i]
+                int sum = nums[i] + nums[left] + nums[right];
+                if (sum == 0) {
+                   triplets.push_back({nums[i], nums[left], nums[right]});
+                   // now we need to make  sure these elements are not repeated again for nums[i]
+                   while (left < right && nums[left] == nums[left+1]) left++;
+                   while (right > left && nums[right] == nums[right-1]) right--;
+
+                   // for normal case with no duplicate
+                   left++;
+                   right--;
+                } else if (sum < 0) {
+                    // sum is too small we need to search for big elements ,which are ahead since the array is sorted
+                    left ++;
+                } else {
+                    right --;
+                }
+            }
+        }
+        return triplets;
+    }
+};
