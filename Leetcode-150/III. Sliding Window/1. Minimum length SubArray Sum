@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int minSubArrayLen(int target, vector<int>& nums) {
+        int minLength = INT_MAX;
+        int left = 0;
+        int n = nums.size();
+        long long sum = 0;
+
+
+        for (int right = 0; right < n; right++) {
+            // each nums[right] acts as candidate end of the window
+            sum += nums[right];
+            while (sum >= target) {
+                minLength = min (minLength, right - left + 1);
+                // current window is valid but the biggest ,lets see if any smaller valid window exist 
+                sum -= nums[left];
+                left++;
+            }
+        }
+        return minLength == INT_MAX ? 0 : minLength;
+    }
+};
