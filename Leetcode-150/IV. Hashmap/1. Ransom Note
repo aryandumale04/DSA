@@ -1,0 +1,20 @@
+class Solution {
+public:
+    bool canConstruct(string ransomNote, string magazine) {
+        int n = magazine.length();
+        int n2 = ransomNote.length();
+        unordered_map<char,int> count;
+        for (int i = 0; i < n; i++) {
+            count[magazine[i]] ++;
+        }
+        for (int i = 0; i < n2; i++) {
+            if (count[ransomNote[i]] <= 0) {
+                return false;
+            } else {
+                // character hai so lets decrease its count
+                count[ransomNote[i]] = count[ransomNote[i]] - 1;
+            }
+        }
+        return true;
+    }
+};
