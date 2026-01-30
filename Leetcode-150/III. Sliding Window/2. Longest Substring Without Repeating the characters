@@ -1,0 +1,23 @@
+#include<unordered_map>
+#include<algorithm>
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        int maxLength = 0;
+        int n = s.size();
+        unordered_map<char,int> lastIndex;
+        int left = 0;
+
+        for (int right = 0; right < n; right++) {
+            if (lastIndex.count(s[right]) && lastIndex[s[right]] >= left) {
+                // the duplicate exist in current window only so 
+                left = lastIndex[s[right]] + 1;
+            }
+            lastIndex[s[right]] = right; 
+            maxLength = max (maxLength, right - left + 1);
+        }
+       
+
+        return maxLength;
+    }
+};
