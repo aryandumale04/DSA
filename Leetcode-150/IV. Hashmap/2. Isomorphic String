@@ -1,0 +1,24 @@
+class Solution {
+public:
+    bool isIsomorphic(string s, string t) {
+        unordered_map<char,char> mapping1 ; // s -> t
+        unordered_map<char,char> mapping2 ; // t -> s
+        int n = s.length();
+
+        for (int i = 0; i < n; i++) {
+           if (mapping1.find(s[i]) == mapping1.end()) {
+            // ye character already mapped nhi hai
+            // we need to map it ,so before mapping let make sure its value is not already mapped
+            if (mapping2.find(t[i]) == mapping2.end()) {
+                // map kardo
+                mapping1[s[i]] = t[i];
+                mapping2[t[i]] = s[i];
+            } else return false;
+           } else {
+            // ye character already mapped hai so we need to check ki firse same mapping hi use hui haina
+            if (mapping1[s[i]] != t[i]) return false;
+           }
+        }
+        return true;
+    }
+};
