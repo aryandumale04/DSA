@@ -1,0 +1,20 @@
+class Solution {
+public:
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+     int n = strs.size();
+     vector<vector<string>> answer;
+     unordered_map<string,vector<string>> groups;
+
+     for (int i = 0; i <n; i++ ) {
+        // placing each string in its appropriate group 
+        string key = strs[i];
+        sort(key.begin(), key.end());
+        groups[key].push_back(strs[i]);
+     }
+     // adding each group in answer
+     for (auto &it : groups) {
+        answer.push_back(it.second);
+     }
+     return answer;
+    }
+};
