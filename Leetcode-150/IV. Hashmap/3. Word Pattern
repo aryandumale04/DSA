@@ -1,0 +1,47 @@
+class Solution {
+public:
+    bool wordPattern(string pattern, string s) {
+        int n1 = pattern.length();
+        int n2 = s.length();
+        unordered_map<char,string> mapping1;
+        unordered_map<string,char> mapping2;
+        int wordIndex = 0;
+
+        int wordCount = 1; // because no leading/trailing spaces
+        for (char c : s) {
+            if (c == ' ') wordCount++;
+        }
+        if (wordCount != pattern.length()) return false;
+
+
+
+        for (int i = 0 ; i < n1; i++) {
+            // for every character in pattern we need to check its mapping for that first lets extract the word which will/is mapped against this
+            int j = wordIndex;
+            string word = "";
+            while (wordIndex < n2 && s[wordIndex] != ' ') {
+                word += s[wordIndex];
+                wordIndex++;
+            }
+            if (wordIndex < n2) wordIndex++; // skip space only if it exists
+
+
+            // word collected no lets check mapping
+            if (mapping1.find(pattern[i]) == mapping1.end()) {
+                // this character of pattern is not mapped so lets map it,but before doing that we need to make sure that its value is not mapped to something else
+                if (mapping2.find(word) != mapping2.end()) return false; // because already mapped to something else
+                else {
+                    // lets map these
+                    mapping1[pattern[i]] = word;
+                    mapping2[word] = pattern[i];
+                }
+            } else {
+                // check the mapping is being maintained
+                if (word != mapping1[pattern[i]]) return false;
+            }
+        }
+       
+
+        return true;
+    }
+};
