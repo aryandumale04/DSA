@@ -1,0 +1,27 @@
+class Solution {
+public:
+    bool isHappy(int n) {
+        bool numRepeat = false;
+        bool happyNumber = false;
+        unordered_map<int,bool> repeat;
+        while (!numRepeat) {
+            // keep on extracting the digits 
+            int sum = 0;
+            while (n > 0) {
+                int digit = n % 10;
+                sum += digit * digit;
+                n = n /10;
+            }
+            // store the sum || check for repeatation
+            if (repeat.find(sum) != repeat.end()) numRepeat = true;
+            else {
+                repeat[sum] = true;
+                if (sum == 1) return true;
+            } 
+
+            n = sum;
+        }
+        return false;
+    }
+
+};
