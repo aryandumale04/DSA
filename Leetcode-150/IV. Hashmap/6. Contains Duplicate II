@@ -1,0 +1,22 @@
+class Solution {
+public:
+    bool containsNearbyDuplicate(vector<int>& nums, int k) {
+        int n = nums.size();
+        unordered_map<int,int> numPresent;
+
+        for (int i = 0; i < n; i++) {
+            if (numPresent.find(nums[i]) == numPresent.end()) {
+                // we are seeing this number for the first time
+                // so store it and its index
+                numPresent[nums[i]] = i;
+            } else {
+                // this number is appearing for the second time ;
+                int diff = i - numPresent[nums[i]]; 
+                numPresent[nums[i]] = i;
+                if (diff < 0) diff = -diff;
+                if (diff <= k) return true;
+            }
+        }
+        return false;
+    }
+};
