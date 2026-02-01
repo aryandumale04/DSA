@@ -12,7 +12,8 @@ public:
             } else {
                 // this number is appearing for the second time ;
                 int diff = i - numPresent[nums[i]]; 
-                numPresent[nums[i]] = i;
+                numPresent[nums[i]] = i; // latest apperance of the number 
+                
                 if (diff < 0) diff = -diff;
                 if (diff <= k) return true;
             }
