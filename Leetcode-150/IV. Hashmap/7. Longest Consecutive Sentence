@@ -2,7 +2,9 @@ class Solution {
 public:
     int longestConsecutive(vector<int>& nums) {
        int maxLength = 0;
+
        unordered_set<int> st(nums.begin(), nums.end()); // all the elements of nums stored in set 
+
        for (int x : st) {
         if (st.find(x - 1) == st.end()) {
             // this element is the start of a new sequence
@@ -15,6 +17,7 @@ public:
             maxLength =  max(maxLength, currLength);
         }
        }
+       
        return maxLength;
     }
 };
