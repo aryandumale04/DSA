@@ -5,7 +5,10 @@ int main () {
     long long cost;
     long long amt;
     cin >> fuelNeeded >> cost;
+
     amt = fuelNeeded * cost;
+
+    
     cout << amt << "\n";
     return 0;
 }
