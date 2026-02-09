@@ -14,11 +14,13 @@ public:
                 mapping1[s[i]] = t[i];
                 mapping2[t[i]] = s[i];
             } else return false;
+           
            } else {
             // ye character already mapped hai so we need to check ki firse same mapping hi use hui haina
             if (mapping1[s[i]] != t[i]) return false;
            }
         }
+        
         return true;
     }
 };
