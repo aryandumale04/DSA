@@ -7,8 +7,7 @@ int main () {
     cin >> fuelNeeded >> cost;
 
     amt = fuelNeeded * cost;
-
-    
+  
     cout << amt << "\n";
     return 0;
 }
