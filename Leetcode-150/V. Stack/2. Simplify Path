@@ -1,0 +1,40 @@
+#include<vector>
+class Solution {
+public:
+    string simplifyPath(string path) {
+        vector<string> directory;
+        int n = path.length();
+        int i = 0; 
+
+        while(i < n) {
+            // we are here to extract token so need to skip first slash and also the consecutive slashesh
+            while(i < n && path[i] == '/') i++;
+
+            if(i >= n) break;
+            string token = "";
+            while(i <n && path[i] != '/') {
+                token += path[i];
+                i++;
+            }
+            // process the token
+            if(token == ".") continue;
+            else if(token == "..") {
+                // move to previous directory ONLY if it exist
+                if(!directory.empty()) directory.pop_back();
+            } else {
+                // its a directory name
+                directory.push_back(token);
+            }
+        }
+
+        string answer = "";
+        if(directory.empty()) return "/";
+        else {
+            for(string dir : directory) {
+                answer += "/" + dir;
+            }
+        }
+        return answer;
+
+    }
+};
