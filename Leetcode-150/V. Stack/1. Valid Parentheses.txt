@@ -5,6 +5,7 @@ public:
     bool isValid(string s) {
         stack <char> st;
         int n = s.length(); 
+
         for(int i = 0; i < n; i++) {
             // check whether this is an closing bracket
             char ch = s[i];
@@ -28,6 +29,7 @@ public:
                 st.push(ch);
             }
         }
+        
         if(st.empty()) return true;
         else return false;
     }
