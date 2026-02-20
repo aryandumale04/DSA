@@ -1,1 +1,115 @@
-jc d vjd 
+class Solution {
+public:
+    string addBinary(string a, string b) {
+        int s1 = a.length() - 1;
+        int s2 = b.length() - 1;
+        bool carry = false;
+        string answer = "";
+
+        for(int i = s1; i >= 0; i--) {
+            // check if any corresponding number exist in the second string 
+            if(s2 >= 0) {
+                // need to perform the addition;
+                if(a[i] == '0' && b[s2] == '0') {
+                  if(carry == true) {
+                    answer += '1';
+                    carry = false;
+                  }
+                  else {
+                    answer += '0';
+                    carry = false;
+                  }    
+                } else if(a[i] == '0' && b[s2] == '1') {
+                    if(carry == true) {
+                        answer += '0';
+                        carry = true;
+                    } 
+                    else {
+                        answer += '1';
+                        carry = false;
+                    }
+                } else if(a[i] == '1' && b[s2] == '0') {
+                    if(carry == true) {
+                        answer += '0';
+                        carry = true;
+                    }
+                   else {
+                    answer += '1';
+                    carry = false; 
+                   }
+                } else {
+                    // both are one
+                    if(carry == true) {
+                        answer += '1';
+                        carry = true;
+                    }
+                    else {
+                        answer += '0';
+                        carry = true;
+                    }
+                 
+                }
+                // ek digit ho gaya process s2 ka
+                s2--;
+
+            } else {
+                // second string ho gayi but carry hai 
+                if(a[i] == '0') {
+                    if (carry == true) {
+                        answer += '1';
+                        carry = false;
+                    } else {
+                        answer += '0';
+                        carry = false;
+                    }
+                }
+                else {
+                    // a[i] = 1
+                    if(carry == true) {
+                        answer += '0';
+                        carry = true;
+                    } else {
+                        
+                        answer += '1';
+                        carry = false;
+                    }
+                }
+            }
+        } 
+        // first string processes now to check whether second string still left or not 
+        while(s2 >= 0) {
+            // now lets add these 
+            if(b[s2] == '0') {
+                if(carry == true) {
+                    answer += '1';
+                    carry = false;
+                } else {
+                    answer += '0';
+                    carry = false;
+                }
+            } else {
+                // '1'
+                if(carry == true) {
+                    answer += '0';
+                    carry = true;
+                } else {
+                    answer += '1';
+                    carry = false;
+                }
+            }
+            s2 --;
+        }
+        if(carry == true) {
+            answer += '1';
+            carry = false;
+        }
+        int z = 0;
+        int y = answer.length() - 1;
+        while(z < y) {
+            swap(answer[z], answer[y]);
+            z++;
+            y--;
+        }
+        return answer;
+    }
+};
