@@ -1,0 +1,7 @@
+D:\Study\AssetCues\SelfLearn\C#\HelloWorld\bin\Debug\HelloWorld.exe.config
+D:\Study\AssetCues\SelfLearn\C#\HelloWorld\bin\Debug\HelloWorld.exe
+D:\Study\AssetCues\SelfLearn\C#\HelloWorld\bin\Debug\HelloWorld.pdb
+D:\Study\AssetCues\SelfLearn\C#\HelloWorld\obj\Debug\HelloWorld.csproj.AssemblyReference.cache
+D:\Study\AssetCues\SelfLearn\C#\HelloWorld\obj\Debug\HelloWorld.csproj.CoreCompileInputs.cache
+D:\Study\AssetCues\SelfLearn\C#\HelloWorld\obj\Debug\HelloWorld.exe
+D:\Study\AssetCues\SelfLearn\C#\HelloWorld\obj\Debug\HelloWorld.pdb
