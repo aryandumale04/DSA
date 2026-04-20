@@ -96,23 +96,39 @@ int main () {
     // cout << fixed << setprecision(5)<<num;
 
     
-    // case 05 : string input to 2d array
-    string line;
-    getline(cin, line);
-    stringstream ss(line);
-    vector<int> oneD;
-    string num;
-    while (getline(ss, num, ',')) {
-        if(!num.empty()) oneD.push_back(stoi(num));
-    }
+    // // case 05 : string input to 2d array
+    // string line;
+    // getline(cin, line);
+    // stringstream ss(line);
+    // vector<int> oneD;
+    // string num;
+    // while (getline(ss, num, ',')) {
+    //     if(!num.empty()) oneD.push_back(stoi(num));
+    // }
     
-    vector<vector<int>> twoD(3, vector<int>(2));
-    int k = 0;
-    for (int i = 0; i < 3; i++) {
-        for (int j = 0; j < 2; j++) {
-            twoD[i][j] = oneD[k];
-            k++;
-        }
-    }
+    // vector<vector<int>> twoD(3, vector<int>(2));
+    // int k = 0;
+    // for (int i = 0; i < 3; i++) {
+    //     for (int j = 0; j < 2; j++) {
+    //         twoD[i][j] = oneD[k];
+    //         k++;
+    //     }
+    // }
+
+
+    // // fractions 
+    // string s; 
+    // getline(cin, s);
+    // stringstream ss(s);
+    // int a;
+    // int b;
+    // int c;
+    // int d;
+    // char ch;
+    // ss >> a >> ch >> b >> c >> ch >> d;
+    // cout << "a : " << a <<endl;
+    // cout << "b : " << b <<endl;
+    // cout << "c : " << c <<endl;
+    // cout << "d : " << d <<endl;
     return 0;
 }
