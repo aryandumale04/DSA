@@ -39,20 +39,38 @@ int main () {
 //     return 0;
 // }
 
-        // case 02 : comma separated array input 
-    string line;
-    getline(cin, line);
-    stringstream ss(line);
-    string num;
-    vector<int> arr;
-    while (getline(ss,num, ',')) {
-        if (!num.empty()) arr.push_back(stoi(num));  
-    }
-    int size = arr.size();
-    cout << "The size of the array is : " << size << endl;
-    cout << "The elements taken in input are as follows : ";
-    for (int i = 0; i < size; i++) {
-        cout << arr[i] <<" ";
-    }
+    //     // case 02 : comma separated array input 
+    // string line;
+    // getline(cin, line);
+    // stringstream ss(line);
+    // string num;
+    // vector<int> arr;
+    // while (getline(ss,num, ',')) {
+    //     if (!num.empty()) arr.push_back(stoi(num));  
+    // }
+    // int size = arr.size();
+    // cout << "The size of the array is : " << size << endl;
+    // cout << "The elements taken in input are as follows : ";
+    // for (int i = 0; i < size; i++) {
+    //     cout << arr[i] <<" ";
+    // }
+
+
+    //     // case 03 : bracket array input + commas 
+    // string line;
+    // getline(cin, line);
+    // string newString = line.substr(1, line.length() - 2);
+    // stringstream ss(newString);
+    // string num;
+    // vector<int> arr;
+    // while (getline(ss,num, ',')) {
+    //     if (!num.empty()) arr.push_back(stoi(num)); 
+    // }
+    // int size = arr.size();
+    // cout << "The size of the array is : " << size << endl;
+    // cout << "The elements taken in input are as follows : ";
+    // for (int i = 0; i < size; i++) {
+    //     cout << arr[i] <<" ";
+    // }
     return 0;
 }
