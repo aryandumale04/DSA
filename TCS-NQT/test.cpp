@@ -11,5 +11,48 @@ int main () {
 
     // cout<< x << endl;
     // cout << a << endl;
+
+
+
+
+//     #include<bits/stdc++.h>
+// using namespace std; 
+
+// int main () {
+//     // case 01 :  string format array  :  when the size of array is not given
+//     string line;
+//     getline(cin, line);
+//     stringstream ss(line);
+    
+//     vector<int> arr;
+//     int num;
+//     while (ss >> num) {
+//         arr.push_back(num);
+//     }
+    
+//     int size  =  arr.size();
+//     cout << "The size of the array is : " << size << endl;
+//     cout << "The elements taken in input are as follows : ";
+//     for (int i = 0; i < size; i++) {
+//         cout << arr[i] <<" ";
+//     }
+//     return 0;
+// }
+
+        // case 02 : comma separated array input 
+    string line;
+    getline(cin, line);
+    stringstream ss(line);
+    string num;
+    vector<int> arr;
+    while (getline(ss,num, ',')) {
+        if (!num.empty()) arr.push_back(stoi(num));  
+    }
+    int size = arr.size();
+    cout << "The size of the array is : " << size << endl;
+    cout << "The elements taken in input are as follows : ";
+    for (int i = 0; i < size; i++) {
+        cout << arr[i] <<" ";
+    }
     return 0;
 }
