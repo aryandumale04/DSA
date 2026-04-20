@@ -72,5 +72,21 @@ int main () {
     // for (int i = 0; i < size; i++) {
     //     cout << arr[i] <<" ";
     // }
+
+    //case 04  :  words separated by spaces 
+    string line;
+    getline(cin, line);
+    stringstream ss(line);
+    string word;
+    vector<string> arr;
+    while (ss >> word) {
+        arr.push_back(word);
+    }
+    int size = arr.size();
+    cout << "The size of the array is : " << size << endl;
+    cout << "The elements taken in input are as follows : ";
+    for (int i = 0; i < size; i++) {
+        cout << arr[i] <<" ";
+    }
     return 0;
 }
