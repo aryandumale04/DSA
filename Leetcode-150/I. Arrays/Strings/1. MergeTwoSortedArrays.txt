@@ -12,7 +12,7 @@ public:
             }
 
             // fir place found to put nums2 element ,but we need to right shift the nums1 element first
-            for (int k = len; k > i; k--) {
+            for (int k = len; k > i; k--) { 
                 nums1[k] = nums1[k-1];
             }
 
@@ -21,6 +21,32 @@ public:
             i++; 
             j++;
             len++;
+        }
+
+
+
+
+         // optimal approach :  nums1 already has space of all elements . So i just need to place them directly
+        int arr1 = m - 1;
+        int arr2 = n - 1;
+        int freeSpaceForLargest  = m + n - 1;
+
+        while (arr1 >= 0 && arr2 >= 0) {
+            if (nums1[arr1] > nums2[arr2]) {
+                nums1[freeSpaceForLargest] = nums1[arr1];
+                freeSpaceForLargest--;
+                arr1--;
+            } else {
+                nums1[freeSpaceForLargest] = nums2[arr2];
+                freeSpaceForLargest--;
+                arr2--;                
+            }
+        } 
+
+        while (arr2 >= 0) {
+            nums1[freeSpaceForLargest] = nums2[arr2];
+            freeSpaceForLargest--;
+            arr2--;
         }
         
     }
