@@ -35,13 +35,15 @@ public:
 
 
 
-        // slow fast approach 
-        ListNode *slow = head;
-        ListNode *fast = head;
-        while(fast!= NULL && fast -> next != NULL) {
-            slow =  slow -> next;
-            fast =  fast -> next -> next;
+        ListNode* slow = head;
+        ListNode* fast = head;
+
+        while(fast != NULL && fast->next != NULL) {
+            // i dont know how many nodes are there in the linked list ,so i will just make sure i am traversing till the end and not beyond
+            slow = slow -> next;
+            fast = fast -> next -> next;
         }
+
         return slow;
 
     }
