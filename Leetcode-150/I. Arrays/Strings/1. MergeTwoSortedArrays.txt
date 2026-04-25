@@ -29,23 +29,28 @@ public:
          // optimal approach :  nums1 already has space of all elements . So i just need to place them directly
         int arr1 = m - 1;
         int arr2 = n - 1;
-        int freeSpaceForLargest  = m + n - 1;
+        int largestElement = m + n - 1;
 
-        while (arr1 >= 0 && arr2 >= 0) {
+        //comparing array elements in reverse direction
+        while(arr1 >= 0 && arr2 >= 0) {
+            // do elements hai compare karne ke liye
             if (nums1[arr1] > nums2[arr2]) {
-                nums1[freeSpaceForLargest] = nums1[arr1];
-                freeSpaceForLargest--;
+                nums1[largestElement] = nums1[arr1];
+                largestElement--;
                 arr1--;
             } else {
-                nums1[freeSpaceForLargest] = nums2[arr2];
-                freeSpaceForLargest--;
+                nums1[largestElement] = nums2[arr2];
+                largestElement--;
                 arr2--;                
             }
-        } 
+        }
 
+        // ek bacha ho sakta hai 
+        // left wala hoga toh we need not do anything 
+        //right wala bacha hai 
         while (arr2 >= 0) {
-            nums1[freeSpaceForLargest] = nums2[arr2];
-            freeSpaceForLargest--;
+            nums1[largestElement] = nums2[arr2];
+            largestElement--;
             arr2--;
         }
         
