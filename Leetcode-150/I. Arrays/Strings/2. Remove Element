@@ -20,5 +20,19 @@ public:
             if (nums[i] != val) count++;
         }
         return count;
+
+
+
+                // optimal approach  :  question wants me to build an array 0 - k
+        int validElementIndex = 0;
+        int count = 0;
+        for (int i = 0; i < nums.size(); i++) {
+            if (nums[i] != val) {
+                nums[validElementIndex] = nums[i];
+                validElementIndex++;
+                count++;
+            }
+        }
+        return count;;
     }
 };
