@@ -1,19 +1,26 @@
 class Solution {
 public:
     int removeDuplicates(vector<int>& nums) {
-       int k = 2;
-       int uniqueIndex = 2;
-       if (nums.size() <= 2) {
-        return nums.size();
-       }
-       for (int i = 2; i < nums.size(); i++) {
-        if (!(nums[i] == nums[uniqueIndex-1] && nums[i] == nums[uniqueIndex-2])) {
-            //unique element 
-            nums[uniqueIndex] = nums[i];
-            uniqueIndex++;
-            k++;
+        if (nums.size() <= 2) {
+            return nums.size();
+        } else {
+        int count  = 2;
+        int validElementIndex = 2;
+
+        for (int i = 2; i < nums.size(); i++) {
+            // kya ye element unique hai 
+            if (nums[i] == nums[validElementIndex - 1] && nums[i] == nums[validElementIndex - 2]) {
+                // na 
+                continue;
+            } else {
+                nums[validElementIndex] = nums[i];
+                count++;
+                validElementIndex++;       
+            }
         }
-       }
-       return k;
+        return count;
+        }
+
+
     }
 };
