@@ -33,4 +33,32 @@ public:
         }
         return mp[head];
     }
+
+
+
+
+            // now assign the random pointers
+        temp = head;
+        while (temp != NULL) {
+            if(temp -> random != NULL) {
+                temp -> next -> random = temp -> random -> next;
+            }
+            temp = temp -> next -> next;
+        }
+
+        // separate the two lists 
+        Node dummy(0);
+        Node* tail = &dummy;
+        
+        temp = head; 
+        while (temp != NULL) {
+            Node *copy = temp -> next;
+            tail -> next = copy ;
+            tail = copy;
+
+            temp -> next  = copy -> next;
+            temp = temp -> next;
+        }
+
+        return dummy.next;
 };
