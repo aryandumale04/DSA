@@ -1,22 +1,23 @@
 #include<map>
 class Solution {
 public:
+
+// we have to build a valid array 
     int removeDuplicates(vector<int>& nums) {
-      int count = 1; 
-      int uniqueElementIndex = 1; // start from 1 because first unique element is already at its correct position which is index 2 
 
+        int count = 1;
+        int validElementIndex = 1;
 
-      for (int i = 1; i < nums.size() ; i++) {
-        if (nums[i] != nums[uniqueElementIndex-1]) { 
-            // unique element 
-            count ++;
-            nums[uniqueElementIndex] = nums[i];
-            uniqueElementIndex ++ ;
+        for(int i = 1; i < nums.size(); i++) {
+            if (nums[i] != nums[validElementIndex - 1]) //  is this element present in the valid portion 
+            {
+                //unique element hai 
+                nums[validElementIndex] = nums[i];
+                validElementIndex++;
+                count++;
+            }
         }
-      }
-
-      
-      return count;
+        return count;
     }
 
 };
