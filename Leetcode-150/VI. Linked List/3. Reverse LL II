@@ -1,0 +1,48 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* reverseBetween(ListNode* head, int left, int right) {
+        ListNode *prev = NULL;
+        ListNode *curr = head;
+
+        for (int i = 1; i < left; i++) {
+            prev = curr;
+            curr = curr -> next;
+        }
+        // now curr point to the left node and prev to one before that 
+
+        // lets start reversing  
+        ListNode *leftConnection = prev;
+        ListNode *tail = curr;
+
+        // kitne nodes karne hai reverse 
+        for (int i = 0; i < right - left + 1; i++) {
+            ListNode *frontLL = curr -> next;
+            curr -> next = prev;
+            prev = curr;
+            curr = frontLL;
+        }
+
+        // now just need to change the links of the left  and right end
+        if (leftConnection != NULL) {
+            leftConnection -> next = prev;
+        } else {
+            head  = prev;
+        }
+
+        // right end; 
+        tail -> next  = curr;
+        return head;
+
+
+    }
+};
