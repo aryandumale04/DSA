@@ -10,24 +10,60 @@
  */
 class Solution {
 public:
-    ListNode* removeNthFromEnd(ListNode* head, int n) {
-        ListNode dummy(0);
-        ListNode* tail = &dummy;
-        tail -> next = head;
+    ListNode* deleteDuplicates(ListNode* head) {
         
-        ListNode* slow = &dummy;
-        ListNode* fast = &dummy;
+        // ListNode dummy(0);
+        // ListNode *tail = &dummy;
+        // if (head == NULL) return NULL;
+        // else if (head -> next == NULL) return head;
+        // else {
+        //     unordered_map<int, int> uniqueEle;
+        //     ListNode* temp = head;
+        //     while (temp != NULL) {
+        //         uniqueEle[temp -> val]++;
+        //         temp = temp -> next;
+        //     }
 
-        for (int i = 0; i <= n; i++) fast = fast -> next;
+        //     temp = head; 
+        //     while (temp != NULL) {
+        //         if (uniqueEle[temp -> val] == 1) {
+        //             tail -> next = temp;
+        //             tail =  temp;
+                    
+        //         }
+        //         temp = temp -> next;
+        //     }
+        //     tail->next = NULL;
 
-        while (fast != NULL) {
-            slow = slow -> next;
-            fast = fast -> next;
+        // }
+
+
+        // return dummy.next;
+
+
+        // optimal approach : LL is sorted ,so duplicates are adjacent
+        ListNode dummy(0);
+        dummy.next = head;
+        ListNode* prev = &dummy;
+        ListNode* curr = head;
+
+        while (curr != NULL) {
+            if (curr -> next && curr -> val == curr -> next -> val) {
+                // duplicate block starts from  here so skip THIS BLOCK ENTIRELY
+                while (curr -> next && curr -> next -> val == curr -> val) {
+                    curr = curr -> next;
+                }
+                prev -> next = curr -> next;
+                curr = prev -> next;
+            } else {
+                // no duplicate block so just move ahead
+                prev = curr;
+                curr = curr -> next;
+            }
+
         }
-
-        // now slow is one before the node which we have to delete
-        slow -> next = slow -> next -> next;
         return dummy.next;
 
+    
     }
 };
