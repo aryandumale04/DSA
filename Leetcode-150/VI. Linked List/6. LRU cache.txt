@@ -1,0 +1,104 @@
+class Node {
+public : 
+    int key ;
+    int value;
+    Node* next;
+    Node* prev;
+
+    Node(int key, int value) {
+        this -> key = key;
+        this -> value = value;
+        this -> next = NULL;
+        this -> prev = NULL;
+    }
+};
+
+class LRUCache {
+public:
+    // // it needs : 01 Capacity
+    // 02. map for instant get
+    // 03.tail and head for put 
+    int size;
+    unordered_map<int, Node*> mp;
+    Node* head;
+    Node* tail;
+
+    void removeNode (Node *temp) {
+        Node *prevNode = temp -> prev;
+        Node *nextNode = temp -> next;
+
+        prevNode -> next = nextNode;
+        nextNode -> prev = prevNode;
+    }
+
+    void addToFront (Node *temp) {
+        Node * frontLL = head -> next;
+        head -> next = temp;
+        frontLL -> prev = temp;
+
+        temp -> next = frontLL;
+        temp -> prev = head; 
+    }
+
+
+    LRUCache(int capacity) {
+       this -> size = capacity;
+       head = new Node(-1, -1); // dummy head
+       tail = new Node(-1, -1); // dummy tail
+
+       head -> next = tail;
+       tail -> prev = head;
+
+    }
+    
+    int get(int key) {
+        //search for the element :  use map for O(1)
+        if(mp.find(key) == mp.end()) return -1;
+        else {
+            Node *temp = mp[key];
+            
+
+            // now this node has been accessed ,so remove it from its correct position and add it in front
+            removeNode(temp);
+            addToFront(temp);
+
+            return temp -> value;// because code after return never runs
+        }
+    }
+    
+    void put(int key, int value) {
+        // first check whether the element already exist or not 
+        if (mp.find(key) == mp.end()) {
+                // nahi hai so need to insert it but before doing that need  check if size full or not 
+                if (mp.size() == size) {
+                    // need to delete the least recently used and then insert
+
+                    // always the least recently used will be the node before tail 
+                    Node * delNode = tail -> prev;
+                    removeNode(delNode);
+                    mp.erase(delNode->key);
+                    delete delNode;
+
+                }
+                    // directly insert 
+                    Node *newNode  = new Node(key, value);
+                    mp[key] = newNode;
+                    addToFront(newNode);
+                
+        } else {
+            // already exit so just update the value
+            Node *temp = mp[key];
+            temp -> value =  value;
+
+            removeNode(temp);
+            addToFront(temp);
+        }
+    }
+};
+
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache* obj = new LRUCache(capacity);
+ * int param_1 = obj->get(key);
+ * obj->put(key,value);
+ */

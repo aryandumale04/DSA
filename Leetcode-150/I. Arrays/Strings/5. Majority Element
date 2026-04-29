@@ -19,7 +19,7 @@ public:
 
 
 
-            //optimal approach  : boyer moore voting algorithm 
+        //optimal approach  : boyer moore voting algorithm 
         int count  = 1;
         int candidate = nums[0];
 
