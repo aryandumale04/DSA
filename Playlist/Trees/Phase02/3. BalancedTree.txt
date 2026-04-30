@@ -1,0 +1,67 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    int heightOfTree(TreeNode* root) {
+        // base case 
+        if (root == NULL) return 0;
+
+        int leftHeight = heightOfTree(root -> left);
+        int rightHeight = heightOfTree(root -> right);
+
+        return max(leftHeight, rightHeight) + 1;
+    }
+    bool isBalanced(TreeNode* root) {
+        if (root == NULL) return true;
+        int leftHeight = heightOfTree(root -> left);
+        int rightHeight = heightOfTree(root -> right);
+
+        int diff = abs(leftHeight - rightHeight);
+        if(diff > 1) return false;
+
+        
+        else return isBalanced(root -> left) && isBalanced(root -> right);
+    }
+};
+
+
+
+// optimal approach
+class Solution {
+public:
+    pair<bool, int> BalancedAndHeight(TreeNode *root) {
+        if (root == NULL) {
+            pair<bool, int> p = make_pair(true, 0);
+            return p;
+        }
+
+        //height nikalo 
+        pair<bool,int> leftHeight = BalancedAndHeight(root -> left);
+        pair<bool,int> rightHeight = BalancedAndHeight(root -> right);
+        int height = max(leftHeight.second, rightHeight.second) + 1;
+
+        // balanced hai ya nahi check karo
+        if ((leftHeight.first && rightHeight.first) && abs(leftHeight.second - rightHeight.second) <= 1) {
+            pair<bool, int> ans = make_pair(true, height);
+            return ans;
+        } else {
+            pair<bool, int> ans = make_pair(false, height);
+            return ans;
+        }
+
+        
+    }
+    bool isBalanced(TreeNode* root) {
+        bool answer = BalancedAndHeight(root).first;
+        return answer;
+    }
+};
