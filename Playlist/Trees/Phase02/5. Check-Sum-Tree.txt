@@ -1,0 +1,48 @@
+/*  Tree node
+struct Node
+{
+    int data;
+    Node* left, * right;
+}; */
+
+// Should return true if tree is Sum Tree, else false
+class Solution {
+  public:
+    pair<bool, int> fastSum(Node* root) {
+        // base case 
+        if (root == NULL) {
+            pair<bool, int> p = make_pair(true, 0);
+            return p;
+        } 
+        
+        // except leaf nodes
+        if (root -> left == NULL && root -> right == NULL) {
+            pair<bool, int> p = make_pair(true, root -> data);
+            return p;
+        }
+        
+        pair<bool, int> leftTree = fastSum(root -> left);
+        pair<bool, int> rightTree = fastSum(root -> right);
+        
+        
+        int TotalSumForCurrNode = root -> data + leftTree.second + rightTree.second;
+        int currSum = root -> data == leftTree.second + rightTree.second;
+        
+        if (currSum && leftTree.first && rightTree.first) {
+            pair<bool, int> ans = make_pair(true, TotalSumForCurrNode);
+            return ans;
+        } else {
+            pair<bool, int> ans = make_pair(false, TotalSumForCurrNode);
+            return ans;            
+        }
+
+        
+
+        
+    }
+    bool isSumTree(Node* root) {
+        // Your code here
+        pair<bool, int> answer = fastSum(root);
+        return answer.first;
+    }
+};
