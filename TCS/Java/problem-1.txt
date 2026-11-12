@@ -1,0 +1,121 @@
+Problem 1: Department Salary AppraisalCreate a class Employee with the below attributes:empId – intempName – Stringdepartment – Stringsalary – doubleThe above attributes should be private, write getters, setters and parameterized constructor as required.Create class Solution with main method.Implement a static method – updateSalaryByDepartment in Solution class.updateSalaryByDepartment method:
+This method will take three input parameters – an array of Employee objects, a String parameter representing the target department, and a double parameter representing the appraisal percentage.The method should find all employees belonging to the given department (the comparison should be case-insensitive) and update their salary by increasing it by the given appraisal percentage. It should return a new array of Employee objects containing only those updated employees, preserving their original order of appearance.If no employee belongs to the specified department, or if the input array is empty, the method should return null.The above mentioned static method should be called from the main method.For updateSalaryByDepartment method – The main method should print the empId, empName, department, and updated salary (separated by a single space) of each returned employee on a new line. If the returned value is null, it should print "No Employee Found" (without quotes).Input FormatThe first line contains an integer $N$, representing the number of Employee records.For each of the next $N$ records, four lines follow:empId (integer)empName (String — may contain spaces, e.g., "Aryan Dumale")department (String — may contain spaces, e.g., "Human Resources")salary (double)The next line contains a String representing the target department.The last line contains a double representing the appraisalPercentage.Output FormatFor each matching employee, print empId empName department updatedSalary on a separate line (format updatedSalary cleanly or standard double print).If no matching employee is found, print:No Employee FoundConstraints$0 \le N \le 100$$1 \le \text{empId} \le 10^5$$0.0 < \text{salary} \le 10^7$$0.0 \le \text{appraisalPercentage} \le 100.0$Sample Test CaseSample Input:Plaintext4
+101
+Rohan Sharma
+IT Support
+40000.0
+102
+Neha Verma
+Human Resources
+50000.0
+103
+Vikram Joshi
+it support
+60000.0
+104
+Priya Nair
+Finance
+55000.0
+IT SUPPORT
+10.0
+Sample Output:Plaintext101 Rohan Sharma IT Support 44000.0
+103 Vikram Joshi it support 66000.0
+Drop your complete code whenever you're ready—we'll review your solution, catch any subtle traps (Scanner buffer behavior, null checks, array conversion), and extract the exact takeaways before moving to Problem 2.
+
+
+
+
+Solution : 
+
+
+
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+
+        if (n == 0) {
+            System.out.println("No Employee Found");
+            return;
+        }
+        Employee[] emp =  new Employee[n];
+        for(int i = 0 ; i < n; i++) {
+            int id;
+            String na;
+            String d;
+            double s;
+            id =  sc.nextInt();
+            sc.nextLine();
+            na = sc.nextLine();
+            d = sc.nextLine();
+            
+            s =  sc.nextDouble();
+            emp[i] =  new Employee(id, na, d, s);   
+        }
+        sc.nextLine();
+        String dep =  sc.nextLine();
+        double dd = sc.nextDouble();
+
+        Employee[] result = updateSalaryByDepartment(emp, dep, dd);
+        if(result != null) {
+            for (Employee e : result) {
+                System.out.print(e.getEmpId() + " " + e.getEmpName() + " " + e.getDepartment() + " " + e.getSalary());
+                System.out.println();
+
+            }
+        } else {
+            System.out.println("No Employee Found");
+        }
+        
+    }
+
+    public static Employee[] updateSalaryByDepartment(Employee[] arr, String d, double per) {
+        if (arr == null || arr.length == 0) return null;
+        List<Employee> arr2 =  new ArrayList<>();
+        for (Employee e : arr) {
+            if (e.getDepartment().equalsIgnoreCase(d)) {
+                //update the salary of this employee
+                e.setSalary(e.getSalary() + ( (e.getSalary()/100) * per) );
+                arr2.add(e);
+            }
+        }
+        if (arr2.isEmpty()) {
+            return null;
+        } else {
+            return arr2.toArray(new  Employee[0]);
+        }
+        
+    }
+}
+class Employee {
+    private int empId;
+    private String empName;
+    private String department;
+    private double salary;
+
+    Employee(int e, String n, String d, double s) {
+        this.empId = e;
+        this.empName = n;
+        this.department = d;
+        this.salary = s;
+    }
+
+    //getters
+    public int getEmpId() {return this.empId;}
+    public String getEmpName() {return this.empName;}
+    public String getDepartment() {return this.department;}
+    public double getSalary() {return this.salary;}
+
+    //setters
+    public void setEmpId(int e) {this.empId = e;}
+    public void setEmpName(String s) {this.empName = s;}
+    public void setDepartment(String d) {this.department = d;}
+    public void setSalary(double s) {this.salary = s;}
+}
+
