@@ -1,0 +1,158 @@
+Problem 2: Bookstore Catalog AnalyzerCreate a class Book with the below attributes:bookId – inttitle – Stringauthor – Stringprice – doubleThe above attributes should be private, write getters, setters and parameterized constructor as required.Create class Solution with main method.Implement two static methods – findSecondHighestPriceBook and getBooksWithinBudget in Solution class.1. findSecondHighestPriceBook method:
+This method will take an array of Book objects as input parameter and return the Book object having the second-highest distinct price.If two or more books share the exact same second-highest price, return the first one encountered in the input array.If the input array is empty, or if fewer than two distinct prices exist among all books (e.g., only 1 book, or all books have the exact same price), the method should return null.2. getBooksWithinBudget method:
+This method will take two input parameters – an array of Book objects and a double parameter representing maxBudget.The method should find all books whose price is less than or equal to maxBudget.It should return a List<Book> (or ArrayList<Book>) sorted in ascending order of price. If two books have the exact same price, they should be sorted in alphabetical order (case-insensitive) of their title.If no book falls within the given budget, or if the input array is empty, the method should return null.Both static methods should be called from the main method:For findSecondHighestPriceBook: Print bookId, title, and price separated by a single space. If null is returned, print "No Second Highest Book Found".For getBooksWithinBudget: Print bookId, title, author, and price (separated by a single space) for each book on a new line. If null is returned, print "No Books Within Budget".Input FormatThe first line contains an integer $N$, representing the number of Book records.For each of the next $N$ records, four lines follow:bookId (integer)title (String — may contain spaces)author (String — may contain spaces)price (double)The last line contains a double representing maxBudget.Output FormatFirst line: Output of findSecondHighestPriceBook (bookId title price or No Second Highest Book Found).Subsequent lines: Output of getBooksWithinBudget (each book's bookId title author price on a new line, or No Books Within Budget).Constraints$0 \le N \le 100$$1 \le \text{bookId} \le 10^5$$0.0 < \text{price} \le 10^5$$0.0 \le \text{maxBudget} \le 10^5$Sample Test CaseSample Input:Plaintext4
+201
+Clean Code
+Robert Martin
+450.0
+202
+Java Basics
+James Gosling
+300.0
+203
+Algorithms
+Robert Sedgewick
+450.0
+204
+Data Structures
+Narasimha Karumanchi
+300.0
+350.0
+Sample Output:Plaintext202 Java Basics 300.0
+204 Data Structures Narasimha Karumanchi 300.0
+202 Java Basics James Gosling 300.0
+Apply the 3-Pass Protocol (Book class first $\rightarrow$ Scanner I/O & method skeletons $\rightarrow$ logic) and paste your solution whenever ready!
+
+
+
+
+
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        if (n == 0) {
+            System.out.println("No Second Highest Book Found");
+            System.out.println("No Books Within Budget");
+            return;
+        }
+        Book [] arr =  new Book[n];
+        for (int i = 0; i < n; i++) {
+            int a = sc.nextInt();
+            sc.nextLine();
+            String b =  sc.nextLine();
+            String c = sc.nextLine();
+            double d = sc.nextDouble();
+
+            Book bk =  new Book(a, b, c, d);
+            arr[i] =  bk;
+        }
+        double bud = sc.nextDouble();
+
+        //find the book with highest price
+        Book bkSecondHighestPrice = findSecondHighestPriceBook(arr);
+        if(bkSecondHighestPrice != null) {
+            System.out.println(bkSecondHighestPrice.getBookId() + " " + bkSecondHighestPrice.getTitle() + " "+ bkSecondHighestPrice.getPrice());
+        } else {
+            System.out.println("No Second Highest Book Found");
+            
+        }
+        List<Book> answer = getBooksWithinBudget(arr, bud);
+        if(answer==null) {
+            System.out.println("No Books Within Budget");
+        } else {
+            for (Book bk : answer) {
+                System.out.println(bk.getBookId() + " " + bk.getTitle() + " " + bk.getAuthor() + " " + bk.getPrice());
+                
+            }
+        }
+    }
+
+    // static 
+    static Book findSecondHighestPriceBook (Book[] arr) {
+        if (arr == null || arr.length <= 1) {return null;}
+        // find the book with second highest price
+        int highestPriceIndex = 0;
+        int secondHighestPriceIndex = -1;
+        for (int i = 1; i < arr.length; i++) {
+
+            //i is greater than hp
+            if(arr[i].getPrice() > arr[highestPriceIndex].getPrice()) {
+                //check for sp : if sp se bada hai toh hi matter karta 
+               
+                    secondHighestPriceIndex = highestPriceIndex;
+                    highestPriceIndex =  i;
+                
+            }
+
+
+            //i is less than hp
+            if(arr[i].getPrice() < arr[highestPriceIndex].getPrice()) {
+                //check for sp
+                if(secondHighestPriceIndex == -1 || arr[i].getPrice() > arr[secondHighestPriceIndex].getPrice()) {
+                    secondHighestPriceIndex = i;
+                }
+            }
+        }
+
+        if(secondHighestPriceIndex != -1) {
+            return arr[secondHighestPriceIndex];
+        } else {
+            return null;
+        }
+    }
+    static List<Book> getBooksWithinBudget (Book[] arr, double a) {
+        List<Book> result =  new ArrayList<>();
+        for (Book b : arr) {
+            if (b.getPrice() <= a) {
+                result.add(b);
+            }
+        }
+
+        // sort the result in ascending order
+        Collections.sort(result, (x, y) -> {
+            int c = Double.compare(x.getPrice(), y.getPrice());
+            if (c != 0) return c;
+            return x.getTitle().compareToIgnoreCase(y.getTitle());
+        });
+        if (result.isEmpty()) {
+            return null;
+        } else {
+            return result;
+        }
+    }
+}
+
+class Book {
+
+    private int bookId;
+    private String title;
+    private String author;
+    private double price;
+    
+    Book(int a, String b, String c, double d) {
+        this.bookId = a;
+        this.title = b;
+        this.author = c;
+        this.price = d;
+    }
+
+    //getters
+    public int getBookId() {return this.bookId;}
+    public String getTitle() {return this.title;}
+    public String getAuthor() {return this.author;}
+    public double getPrice() {return this.price;}
+
+
+    //setters
+    public void setBookId(int a) {this.bookId = a;}
+    public void setTitle(String b) {this.title = b;}
+    public void setAuthor(String c) {this.author = c;}
+    public void setPrice(double d) {this.price = d;}
+}

@@ -1,0 +1,146 @@
+Problem 3: Hotel Room Booking AnalyzerCreate a class Hotel with the below attributes:hotelId – inthotelName – Stringcity – StringwifiAvailable – booleanroomRent – doubleThe above attributes should be private, write getters, setters, and parameterized constructor as required.Create class Solution with main method.Implement two static methods – countHotelsWithWifiInCity and getAverageRentByCity in Solution class.1. countHotelsWithWifiInCity method:
+This method will take two input parameters – an array of Hotel objects and a String representing city.It should return the count (int) of hotels located in the given city (case-insensitive) where wifiAvailable is true.If no matching hotel is found, or if the input array is empty, the method should return 0.2. getAverageRentByCity method:
+This method will take two input parameters – an array of Hotel objects and a String representing city.It should calculate and return the average roomRent (double) of all hotels located in the given city (case-insensitive), regardless of Wi-Fi availability.If no hotel is found in the given city, or if the input array is empty, the method should return 0.0.Both static methods should be called from the main method:For countHotelsWithWifiInCity: Print the returned integer count. If 0 is returned, print "No Hotel With Wifi Found".For getAverageRentByCity: Print the returned double value. If 0.0 is returned, print "No Hotel Found".Input FormatThe first line contains an integer $N$, representing the number of Hotel records.For each of the next $N$ records, five lines follow:hotelId (integer)hotelName (String — may contain spaces)city (String — may contain spaces)wifiAvailable (true or false)roomRent (double)The last line contains a String representing the target city.Output FormatFirst line: Count of hotels with Wi-Fi in the given city, or No Hotel With Wifi Found.Second line: Average room rent of hotels in the given city, or No Hotel Found.Constraints$0 \le N \le 100$$1 \le \text{hotelId} \le 10^5$$0.0 < \text{roomRent} \le 10^6$Sample Test CaseSample Input:Plaintext4
+301
+Grand Palace
+New Delhi
+true
+4500.0
+302
+City Inn
+Mumbai
+true
+3200.0
+303
+Metro Stay
+New Delhi
+false
+2500.0
+304
+Royal Suites
+New Delhi
+true
+5000.0
+new delhi
+Sample Output:Plaintext2
+4000.0
+
+
+
+
+
+
+
+import java.io.*;
+import java.util.*;
+import java.util.regex.*;
+import java.text.*;
+import java.math.*;
+
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int n =  sc.nextInt();
+        if (n == 0) {
+            System.out.println("No Hotel With Wifi Found");
+            System.out.println("No Hotel Found");
+            return;
+        }
+        Hotel[] arr =  new Hotel[n];
+        for (int i = 0; i < n; i++) {
+           int a =  sc.nextInt();
+           sc.nextLine();
+           String b = sc.nextLine();
+           String c = sc.nextLine();
+           boolean d =  sc.nextBoolean();
+            sc.nextLine();
+           double e =  sc.nextDouble();
+
+          Hotel hos = new Hotel(a, b, c, d, e);
+          arr[i] = hos;
+        }
+        sc.nextLine();
+        String ct = sc.nextLine();
+        int count = countHotelsWithWifiInCity(arr, ct);
+        if (count == 0) {
+            System.out.println("No Hotel With Wifi Found");
+        } else {
+            System.out.println(count);
+        }
+        double avgRent =  getAverageRentByCity(arr, ct);
+        if (avgRent == 0.0) {
+            System.out.println("No Hotel Found");
+        } else {
+            System.out.println(avgRent);
+        }
+        
+    }
+
+    //static methods
+    static int countHotelsWithWifiInCity (Hotel[] arr, String ct) {
+        if (arr == null) {return 0;}
+        int count = 0;
+        for (Hotel h : arr) {
+            if (h.getCity().equalsIgnoreCase(ct) && h.getWifiAvailable() == true) {
+                count++;
+            }
+        }
+
+        return count;
+    }
+    static double getAverageRentByCity(Hotel[] arr, String ct) {
+        if (arr == null) {
+            return 0.0;
+        }
+        double avg = 0.0;
+        double rent = 0;
+        int count = 0;
+        for (Hotel hk : arr) {
+            if(hk.getCity().equalsIgnoreCase(ct)) {
+                rent += hk.getRoomRent();
+                count ++;
+            }
+        }
+        if (count == 0) {
+            return 0.0;
+        }
+        avg = rent / count;
+        return avg;
+        
+    }
+}
+
+
+class Hotel {
+
+    private int hotelId;
+    private String hotelName;
+    private String city;
+    private boolean wifiAvailable;
+    private double roomRent;
+    
+    Hotel(int a, String b, String c, boolean d, double e) {
+        this.hotelId = a;
+        this.hotelName = b;
+        this.city = c;
+        this.wifiAvailable = d;
+        this.roomRent = e;
+    }
+
+    //getters 
+    public int getHotelId() {return this.hotelId;}
+    public String getHotelName() {return this.hotelName;}
+    public String getCity() {return this.city;}
+    public boolean getWifiAvailable() {return this.wifiAvailable;}
+    public double getRoomRent() {return this.roomRent;}
+
+
+    //setters
+    public void setHotelId( int a) {this.hotelId = a;}
+    public void setHotelName(String b) {this.hotelName = b;}
+    public void setCity(String c) {this.city = c;}
+    public void setWifiAvailable(boolean d) {this.wifiAvailable = d;}
+    public void setRoomRent(double e) {this.roomRent = e;}
+}
