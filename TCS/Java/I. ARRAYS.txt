@@ -1,0 +1,252 @@
+I. ARRAYS : 
+
+-these are fixed sized contiguous containers
+
+
+
+import java.util.Arrays;  (for helper methods)
+
+A. Declaration of arrays : 
+
+1. int []  arr =  new int[n]; all array elements are default value :  0 / false (if it is primitive type)
+								      null (if object type array)
+
+
+2. int[] arr = {10,20,30};
+
+3. Array of custom(user defined objects) : 
+						
+
+						Employee[] arr =  new Employee[n];
+
+
+
+2 - D array declaration : 
+int [][] arr = new int[rows][columns]; //default element intialised to 0
+
+
+B. Basic Operations : 
+
+1. arr.length //notice it is a property and not a method so thus no parenthesis (),  time = O(1)
+2. Arrays.fill(arrayName, value); // each index element's value will be 'value' variable passed to method , time = O(n)
+3. Arrays.sort(arrayName); // will sort the array IN-PLACE, but wont RETURN it, so int[] sortedArr = Arrays.sort(arr);  will raise array, time O(nlogn) (uses dual pivot quick sort if the data type is primitive)
+
+
+// sorting custom(user defined) objects : 
+you need to pass a second argument to sort method, which tells it how to sort the elements (the comparator)
+
+4. Sorting / Comparator for arrays : 
+
+
+Group A  : Primitive data types (int[], double[], char[]) 
+	Primitive types do not accept a comparator so only sorting in ascending order is possible, thus if you wanna sort in descending 	order the   :
+			1.sort in ascending
+			2.reverse the array
+
+	1. int[] : 
+		Arrays.sort(arr); //ascending
+		
+	2. double[] : 
+		Arrays.sort(arr);
+	3. char[] : 
+		Arrays.sort(arr);
+
+Group B : Wrappers and string (Integer[], Double[], Boolean[], String[], Character[])
+		these hold objects so comparators can work with these 
+
+	1. Integer[] : 
+		Arrays.sort(arr, (a,b) -> Integer.compare(a,b)); //ascending
+		Arrays.sort(arr, (a,b) -> Integer.compare(b,a)); //descending
+
+	2. Double[] :
+		Arrays.sort(arr, (a,b) -> Double.comapre(a,b)); //ascending
+		Arrays.sort(arr, (a,b) -> Double.compare(b,a)); //descending
+	3. Boolean[] : 
+		0-false, 1-true
+		Arrays.sort(arr, (a,b) -> Boolean.comapre(a,b)); //false then true
+		Arrays.sort(arr, (a,b) -> Boolean.compare(b,a)); //true then false
+	4. String[] : 
+		A. Case-sensitive : 
+			Arrays.sort(arr, (a,b) -> a.compareTo(b)); //a -> z
+			Arrays.sort(arr, (a,b) -> b.compareTo(a)); //z -> a
+		B. Case-insensitive : 
+			Arrays.sort(arr, (a,b) -> a.compareToIgnoreCase(b)); // a -> z
+			Arrays.sort(arr, (a,b) -> b.compareToIgnoreCase(b)); // z -> a
+	5. Character : 
+		Arrays.sort(arr, (a, b) -> Character.compare(a,b)); //a -> z
+		Arrays.sort(arr, (a,b) -> character.compare(b,a));  // z -> a
+
+
+Group C : Object Type 
+
+use the same methods (Integer.compare, Double.compare, Boolean.compare, string.compareTo) to specify on which field comparison needs to be done , rest everything is same 
+
+
+Tie-breaker / two field comparison 
+Arrays.sort(arr, (a,b) -> {
+	int c =  Integer.compare(a,b);
+	if (c != 0) return c;
+	return new-field-comparator method depending on data type;
+})
+
+
+
+5. Arrays.binarySearch(arrayName, key); //array must be sorted, time = O(logn)
+					returns index of element if found, if not found a negative value
+6. copy / slice : 
+
+	Arrays.copyOfRange(arrayName, from, to); //from is inclusive, to is not, time = O(n)
+						  creates and returns a new array
+7. Arrays.toString(arr); converts any 1-d array to string ,
+			 eg : int[]  arr = {10, 20, 30} -> = "[10, 20, 30]"
+
+8. int[] a = {10, 20, 30};
+   int[] b = {10, 20. 30};
+
+   System.out.println(a == b); //false as this method checks whether a and be point to the same memory location, which they do not
+   System.out.println(a.equals(b)) // false , as it does the same
+   System.out.println(Arrays.equals(a, b)) //true , checks : 
+							1.whether both array a and b have the same number of elements
+							2.whetehr each element at the same index is same or not
+
+
+9.Arrays.asList(arrayName); converts array to list, creates and returns the new list
+
+
+
+
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+
+II. ARRAYLIST : 
+
+
+	 
+these are dynamic arrays 
+import java.util;
+
+
+Declaration of arraylist :  note  :  always use wrapper classes and never the primitive types
+
+1.emptylist : 
+ArrayList<Integer> list =  new ArrayList<>();
+ArrayList<Character> list2 =  new ArrayList<>();
+ArrayList<Boolean> list3 =  new ArrayList<>();
+ArrayList<String> llst4 =  new ArrayList<>();
+
+2.list with values
+ArrayList<Integer> = new ArrayList<>(Arrays.asList(10, 20, 30));
+
+3.list of custom objects 
+ArrayList<Employee> list =  new ArrayList<>();
+
+4.2-D arraylist : 
+ArrayList<ArrayList<Integer>> list =  new ArrayList<>();
+
+
+Basic operations of arraylist
+
+list[i] does not exist in java !!
+
+1.to access elements :  listName.get(index);
+2.Insertion : 
+
+	a. at end : 
+		list.add(value); time = O(1) [amortized cost]
+	b.  at any particular index 
+		list.add(index,value); time = O(n) because of shifting of elements
+3.update a value
+list.set(index, newValue) replaces element at index with newValue
+
+4.Deletion :
+
+	a.remove by index : 
+	list.remove(index); //removes element at index, time = O(n) as remaining elements need to be shifted
+
+	b.remove by value : the overloaded object method which takes object as an input and removes that value (as int may represent an 	index or an element , this is not needed when list stores string or custom objects)
+
+	list.remove(Integer.valueOf(x));
+
+5.size/empty check 
+	list.size();
+	list.isEmpty(); both are O(1);
+
+6.search/ check existence : 
+	list.contains(x);
+	list.indexOf(x); time = O(n)
+7.clear all :  empties the list
+	list.clear();
+
+
+
+Shared /  companion functions  :
+
+1. Sorting : 
+
+
+Collections.sort(listName) or list.sort(null) //we are not passing any comparator and telling to solve based on natural order-data type (thus works on primitive types only and not on custom objects) from smallest to largest , time O(nlogn)
+ 
+
+to sort in descending order : 
+Collections.sort(listName, Collections.reverseOrder());
+
+2. Reversing : 
+Collections.reverse(listName); time = O(n);
+
+3. Min-max
+Collections.min(listName);
+Collections.max(listName); time = O(n)
+
+4.Frequency Count
+Collections.frequency(listName, target) : counts the occurrences of target element, O(n)
+
+Converting list to array 
+list.toArray(new T[0]);
+T- data type of array,  and despite 0 size specified, java creates array of a size of the list only
+
+
+never modify(change its size :  add or remove elements) the list while using iterator 'for each' loop as an exception will  be raised
+solution : 
+	1.if you want to remove elements while looping over the array, use a backword loop
+	2.use removeIf : 
+		list.removeIf(variableRepresentingEachelementinList -> condition)
+
+	// it does not need any loop, you directly call it on the list
+
+5. Sorting in Arraylist : 
+	Collections.sort(listName); //does not works for custom objects,  O(nlogn),  sorts from smallest to largest. use only for 					     primitive wrapper classes Integer, Double, Boolean, Character, String
+	
+
+	Collections.sort(listName, Collections.reverseOrder()); // sorts in reverse, thus no need for methods like Integer.compare(b,a) 								and all for sorting in reverse order (but still needed in custom objects)
+
+
+	for custom objects  :
+	//same as arrays just instead of Arrays.sort -> Collections.sort
+	Collections.sort(listName, (a, b) -> {
+				return Integer.compare(a.getId(), b.getId);
+				// for reverse order
+				return Integer.compare(b.getId(), a.getId);
+
+				//for string 
+				a.getName().compareTo(b.getName());
+				// or  b.getName().compareTo(a.getName());
+				// or a.getName().compareToIgnoreCase(b.getName());
+				
+		});
+
+
+	// tie breker / comparison between two fields  : 
+		Collections.sort(listName, (a, b) -> {
+			datatype(lets say int) int c = Integer.compare(a,getId(), b.getId()); // for reverse same logic , b comes first
+			if (c != 0) return c;
+			return //new field a.getName().compareTo(b.getName());
+		});
+
+
+ 
+
+	
